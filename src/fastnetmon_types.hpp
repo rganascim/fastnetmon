@@ -265,6 +265,10 @@ enum attack_type_t {
     ATTACK_ICMP_FLOOD             = 3,
     ATTACK_UDP_FLOOD              = 4,
     ATTACK_IP_FRAGMENTATION_FLOOD = 5,
+    ATTACK_PORT0                  = 6,
+    ATTACK_PORT53                 = 7,
+    ATTACK_PORT123                = 8,
+    ATTACK_PORT1900               = 9
 };
 
 // Amplification types

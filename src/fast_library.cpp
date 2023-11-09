@@ -1019,6 +1019,21 @@ std::string serialize_attack_description(const attack_details_t& current_attack)
 attack_type_t detect_attack_type(const attack_details_t& current_attack) {
     double threshold_value = 0.9;
 
+    // rafael decoders
+    if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port0_bytes_per_second 
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port0_packets_per_second ) {
+        return ATTACK_PORT0;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port53_bytes_per_second 
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port53_packets_per_second ) {
+            return ATTACK_PORT53;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port123_bytes_per_second 
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port123_packets_per_second ) {
+            return ATTACK_PORT123;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port1900_bytes_per_second 
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port1900_packets_per_second ) {
+            return ATTACK_PORT1900;
+    }
+
     if (current_attack.attack_direction == INCOMING) {
         if (current_attack.traffic_counters.tcp_syn.in_packets > threshold_value * current_attack.traffic_counters.total.in_packets) {
             return ATTACK_SYN_FLOOD;
@@ -1063,6 +1078,14 @@ std::string get_printable_attack_name(attack_type_t attack) {
         return "ip_fragmentation";
     } else if (attack == ATTACK_UNKNOWN) {
         return "unknown";
+    } else if (attack == ATTACK_PORT0) {
+        return "port0";
+    } else if (attack == ATTACK_PORT53) {
+        return "port53";
+    } else if (attack == ATTACK_PORT123) {
+        return "port123";
+    } else if (attack == ATTACK_PORT1900) {
+        return "port1900";
     } else {
         return "unknown";
     }

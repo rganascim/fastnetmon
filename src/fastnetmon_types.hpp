@@ -377,7 +377,8 @@ class ban_settings_t {
       enable_ban_for_p0_pps(false), enable_ban_for_p0_bandwidth(false), ban_threshold_p0_mbps(0), ban_threshold_p0_pps(0),
       enable_ban_for_p53_pps(false), enable_ban_for_p53_bandwidth(false), ban_threshold_p53_mbps(0), ban_threshold_p53_pps(0),
       enable_ban_for_p123_pps(false), enable_ban_for_p123_bandwidth(false), ban_threshold_p123_mbps(0), ban_threshold_p123_pps(0),
-      enable_ban_for_p1900_pps(false), enable_ban_for_p1900_bandwidth(false), ban_threshold_p1900_mbps(0), ban_threshold_p1900_pps(0) {
+      enable_ban_for_p1900_pps(false), enable_ban_for_p1900_bandwidth(false), ban_threshold_p1900_mbps(0), 
+      ban_threshold_p1900_pps(0), enable_ban_subnets(false) {
     }
     bool enable_ban;
     bool enable_ban_ipv6;
@@ -428,6 +429,8 @@ class ban_settings_t {
     bool enable_ban_for_p1900_bandwidth;
     unsigned int ban_threshold_p1900_mbps;
     unsigned int ban_threshold_p1900_pps;
+
+    bool enable_ban_subnets;
 };
 
 

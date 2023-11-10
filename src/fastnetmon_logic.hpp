@@ -37,6 +37,7 @@ void cleanup_ban_list();
 std::string print_ddos_attack_details();
 
 std::string get_attack_description(uint32_t client_ip, const attack_details_t& current_attack);
+std::string get_attack_description_ipv6(subnet_ipv6_cidr_mask_t ipv6_address, const attack_details_t& current_attack);
 
 std::string get_attack_description_in_json(uint32_t client_ip, const attack_details_t& current_attack);
 
@@ -49,6 +50,7 @@ uint64_t convert_conntrack_hash_struct_to_integer(packed_conntrack_hash_t* struc
 bool process_flow_tracking_table(conntrack_main_struct_t& conntrack_element, std::string client_ip);
 bool exec_with_stdin_params(std::string cmd, std::string params);
 ban_settings_t get_ban_settings_for_this_subnet(const subnet_cidr_mask_t& subnet, std::string& host_group_name);
+ban_settings_t get_ban_settings_for_this_subnet_ipv6(const subnet_ipv6_cidr_mask_t& subnet, std::string& host_group_name);
 void exabgp_prefix_ban_manage(std::string action, std::string prefix_as_string_with_mask, std::string exabgp_next_hop, std::string exabgp_community);
 
 #ifdef REDIS

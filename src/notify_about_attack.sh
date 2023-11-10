@@ -16,7 +16,7 @@ email_notify="please_fix_this_email@domain.com"
 # FastNetMon will crash in this case as it expects read of data from script side
 #
 
-if [ "$4" = "ban" ]; then
+if [ "$4" = "ban1" ]; then
     # This action receives multiple statistics about attack's performance and attack's sample to stdin
 
     cat | mail -s "FastNetMon Community: IP $1 blocked because $2 attack with power $3 pps" $email_notify;
@@ -25,9 +25,13 @@ if [ "$4" = "ban" ]; then
     exit 0
 fi
 
-if [ "$4" = "unban" ]; then
+if [ "$4" = "unban1" ]; then
     # No details provided to stdin here
 
     # Please add actions to run when we unban host
     exit 0
 fi
+
+echo "$1 $2 $3 $4" >> /var/log/attacks.log
+cat  >> /var/log/attacks.log
+exit 0

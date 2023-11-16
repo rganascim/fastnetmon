@@ -1012,6 +1012,40 @@ std::string serialize_attack_description(const attack_details_t& current_attack)
         << "Incoming icmp pps: " << current_attack.traffic_counters.icmp.in_packets << " packets per second\n"
         << "Outgoing icmp pps: " << current_attack.traffic_counters.icmp.out_packets << " packets per second\n";
 
+    attack_description
+        << "Incoming port0 traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_port0.in_bytes) << " mbps\n"
+        << "Outgoing port0 traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_port0.out_bytes) << " mbps\n"
+        << "Incoming port0 pps: " << current_attack.traffic_counters.decoder_port0.in_packets << " packets per second\n"
+        << "Outgoing port0 pps: " << current_attack.traffic_counters.decoder_port0.out_packets << " packets per second\n"
+        << "Incoming dns traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_dns.in_bytes) << " mbps\n"
+        << "Outgoing dns traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_dns.out_bytes) << " mbps\n"
+        << "Incoming dns pps: " << current_attack.traffic_counters.decoder_dns.in_packets << " packets per second\n"
+        << "Outgoing dns pps: " << current_attack.traffic_counters.decoder_dns.out_packets << " packets per second\n"
+        << "Incoming ntp traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_ntp.in_bytes) << " mbps\n"
+        << "Outgoing ntp traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_ntp.out_bytes) << " mbps\n"
+        << "Incoming ntp pps: " << current_attack.traffic_counters.decoder_ntp.in_packets << " packets per second\n"
+        << "Outgoing ntp pps: " << current_attack.traffic_counters.decoder_ntp.out_packets << " packets per second\n"
+        << "Incoming ssdp traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_ssdp.in_bytes) << " mbps\n"
+        << "Outgoing ssdp traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_ssdp.out_bytes) << " mbps\n"
+        << "Incoming ssdp pps: " << current_attack.traffic_counters.decoder_ssdp.in_packets << " packets per second\n"
+        << "Outgoing ssdp pps: " << current_attack.traffic_counters.decoder_ssdp.out_packets << " packets per second\n"
+        << "Incoming ldap traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_ldap.in_bytes) << " mbps\n"
+        << "Outgoing ldap traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_ldap.out_bytes) << " mbps\n"
+        << "Incoming ldap pps: " << current_attack.traffic_counters.decoder_ldap.in_packets << " packets per second\n"
+        << "Outgoing ldap pps: " << current_attack.traffic_counters.decoder_ldap.out_packets << " packets per second\n"
+        << "Incoming chargen traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_chargen.in_bytes) << " mbps\n"
+        << "Outgoing chargen traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_chargen.out_bytes) << " mbps\n"
+        << "Incoming chargen pps: " << current_attack.traffic_counters.decoder_chargen.in_packets << " packets per second\n"
+        << "Outgoing chargen pps: " << current_attack.traffic_counters.decoder_chargen.out_packets << " packets per second\n"
+        << "Incoming tcphighports traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_tcphighports.in_bytes) << " mbps\n"
+        << "Outgoing tcphighports traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_tcphighports.out_bytes) << " mbps\n"
+        << "Incoming tcphighports pps: " << current_attack.traffic_counters.decoder_tcphighports.in_packets << " packets per second\n"
+        << "Outgoing tcphighports pps: " << current_attack.traffic_counters.decoder_tcphighports.out_packets << " packets per second\n"
+        << "Incoming udphighports traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_udphighports.in_bytes) << " mbps\n"
+        << "Outgoing udphighports traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_udphighports.out_bytes) << " mbps\n"
+        << "Incoming udphighports pps: " << current_attack.traffic_counters.decoder_udphighports.in_packets << " packets per second\n"
+        << "Outgoing udphighports pps: " << current_attack.traffic_counters.decoder_udphighports.out_packets << " packets per second\n";
+
 
     return attack_description.str();
 }
@@ -1020,18 +1054,36 @@ attack_type_t detect_attack_type(const attack_details_t& current_attack) {
     double threshold_value = 0.9;
 
     // rafael decoders
-    if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port0_bytes_per_second 
+    if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port0_bytes_per_second
         || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port0_packets_per_second ) {
-        return ATTACK_PORT0;
-    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port53_bytes_per_second 
-        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port53_packets_per_second ) {
-            return ATTACK_PORT53;
-    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port123_bytes_per_second 
-        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port123_packets_per_second ) {
-            return ATTACK_PORT123;
-    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port1900_bytes_per_second 
-        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::port1900_packets_per_second ) {
-            return ATTACK_PORT1900;
+            return ATTACK_port0;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::dns_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::dns_packets_per_second ) {
+            return ATTACK_dns;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ntp_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ntp_packets_per_second ) {
+            return ATTACK_ntp;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ssdp_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ssdp_packets_per_second ) {
+            return ATTACK_ssdp;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ip_fragments_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ip_fragments_packets_per_second ) {
+            return ATTACK_IP_FRAGMENTATION_FLOOD;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcp_syn_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcp_syn_packets_per_second ) {
+            return ATTACK_SYN_FLOOD;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ldap_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::ldap_packets_per_second ) {
+            return ATTACK_ldap;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::chargen_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::chargen_packets_per_second ) {
+            return ATTACK_chargen;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcphighports_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcphighports_packets_per_second ) {
+            return ATTACK_tcphighports;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udphighports_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udphighports_packets_per_second ) {
+            return ATTACK_udphighports;
     }
 
     if (current_attack.attack_direction == INCOMING) {
@@ -1078,14 +1130,22 @@ std::string get_printable_attack_name(attack_type_t attack) {
         return "ip_fragmentation";
     } else if (attack == ATTACK_UNKNOWN) {
         return "unknown";
-    } else if (attack == ATTACK_PORT0) {
+    } else if (attack == ATTACK_port0) {
         return "port0";
-    } else if (attack == ATTACK_PORT53) {
-        return "port53";
-    } else if (attack == ATTACK_PORT123) {
-        return "port123";
-    } else if (attack == ATTACK_PORT1900) {
-        return "port1900";
+    } else if (attack == ATTACK_dns) {
+        return "dns";
+    } else if (attack == ATTACK_ntp) {
+        return "ntp";
+    } else if (attack == ATTACK_ssdp) {
+        return "ssdp";
+    } else if (attack == ATTACK_ldap) {
+        return "ldap";
+    } else if (attack == ATTACK_chargen) {
+        return "chargen";
+    } else if (attack == ATTACK_tcphighports) {
+        return "tcphighports";
+    } else if (attack == ATTACK_udphighports) {
+        return "udphighports";
     } else {
         return "unknown";
     }

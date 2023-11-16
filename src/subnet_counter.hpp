@@ -92,11 +92,23 @@ class subnet_counter_t {
     traffic_counter_element_t fragmented;
     traffic_counter_element_t tcp_syn;
 
-    // // rafael decoders p0, p53, p123, p1900
-    traffic_counter_element_t decoder_p0;
-    traffic_counter_element_t decoder_p53;
-    traffic_counter_element_t decoder_p123;
-    traffic_counter_element_t decoder_p1900;
+    // rafael decoders
+    // decoder port0
+    traffic_counter_element_t decoder_port0;
+    // decoder dns
+    traffic_counter_element_t decoder_dns;
+    // decoder ntp
+    traffic_counter_element_t decoder_ntp;
+    // decoder ssdp
+    traffic_counter_element_t decoder_ssdp;
+    // decoder ldap
+    traffic_counter_element_t decoder_ldap;
+    // decoder chargen
+    traffic_counter_element_t decoder_chargen;
+    // decoder tcphighports
+    traffic_counter_element_t decoder_tcphighports;
+    // decoder udphighports
+    traffic_counter_element_t decoder_udphighports;
 
     // Total number of dropped traffic
     traffic_counter_element_t dropped;
@@ -112,10 +124,23 @@ class subnet_counter_t {
         this->fragmented.update_if_larger(another_value.fragmented);
         this->tcp_syn.update_if_larger(another_value.tcp_syn);
 
-        this->decoder_p0.update_if_larger(another_value.decoder_p0);
-        this->decoder_p53.update_if_larger(another_value.decoder_p53);
-        this->decoder_p123.update_if_larger(another_value.decoder_p123);
-        this->decoder_p1900.update_if_larger(another_value.decoder_p1900);
+        // rafael decoders
+        // decoder port0
+        this->decoder_port0.update_if_larger(another_value.decoder_port0);
+        // decoder dns
+        this->decoder_dns.update_if_larger(another_value.decoder_dns);
+        // decoder ntp
+        this->decoder_ntp.update_if_larger(another_value.decoder_ntp);
+        // decoder ssdp
+        this->decoder_ssdp.update_if_larger(another_value.decoder_ssdp);
+        // decoder ldap
+        this->decoder_ldap.update_if_larger(another_value.decoder_ldap);
+        // decoder chargen
+        this->decoder_chargen.update_if_larger(another_value.decoder_chargen);
+        // decoder tcphighports
+        this->decoder_tcphighports.update_if_larger(another_value.decoder_tcphighports);
+        // decoder udphighports
+        this->decoder_udphighports.update_if_larger(another_value.decoder_udphighports);
 
         this->dropped.update_if_larger(another_value.dropped);
 
@@ -151,10 +176,23 @@ class subnet_counter_t {
         fragmented.zeroify();
         tcp_syn.zeroify();
 
-        decoder_p0.zeroify();
-        decoder_p123.zeroify();
-        decoder_p1900.zeroify();
-        decoder_p53.zeroify();
+        // rafael decoders
+        // decoder port0
+        decoder_port0.zeroify();
+        // decoder dns
+        decoder_dns.zeroify();
+        // decoder ntp
+        decoder_ntp.zeroify();
+        // decoder ssdp
+        decoder_ssdp.zeroify();
+        // decoder ldap
+        decoder_ldap.zeroify();
+        // decoder chargen
+        decoder_chargen.zeroify();
+        // decoder tcphighports
+        decoder_tcphighports.zeroify();
+        // decoder udphighports
+        decoder_udphighports.zeroify();
 
         in_flows  = 0;
         out_flows = 0;
@@ -174,9 +212,22 @@ class subnet_counter_t {
         ar& BOOST_SERIALIZATION_NVP(in_flows);
         ar& BOOST_SERIALIZATION_NVP(out_flows);
 
-        ar& BOOST_SERIALIZATION_NVP(decoder_p0);
-        ar& BOOST_SERIALIZATION_NVP(decoder_p53);
-        ar& BOOST_SERIALIZATION_NVP(decoder_p123);
-        ar& BOOST_SERIALIZATION_NVP(decoder_p1900);
+        // rafael decoders
+        // decoder port0
+        ar& BOOST_SERIALIZATION_NVP(decoder_port0);
+        // decoder dns
+        ar& BOOST_SERIALIZATION_NVP(decoder_dns);
+        // decoder ntp
+        ar& BOOST_SERIALIZATION_NVP(decoder_ntp);
+        // decoder ssdp
+        ar& BOOST_SERIALIZATION_NVP(decoder_ssdp);
+        // decoder ldap
+        ar& BOOST_SERIALIZATION_NVP(decoder_ldap);
+        // decoder chargen
+        ar& BOOST_SERIALIZATION_NVP(decoder_chargen);
+        // decoder tcphighports
+        ar& BOOST_SERIALIZATION_NVP(decoder_tcphighports);
+        // decoder udphighports
+        ar& BOOST_SERIALIZATION_NVP(decoder_udphighports);
     }
 };

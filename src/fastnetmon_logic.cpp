@@ -325,72 +325,171 @@ std::string print_ban_thresholds(ban_settings_t current_ban_settings) {
     output_buffer << "\n";
 
     // rafael decoders
-    output_buffer << "P0 Mbps per second: ";
-    if (current_ban_settings.enable_ban_for_p0_bandwidth) {
-        output_buffer << current_ban_settings.ban_threshold_p0_mbps;
+        output_buffer << "port0 Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_port0_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_port0_mbps;
     } else {
         output_buffer << "disabled";
     }
 
     output_buffer << "\n";
 
-     output_buffer << "P0 Packets per second: ";
-    if (current_ban_settings.enable_ban_for_p0_pps) {
-        output_buffer << current_ban_settings.ban_threshold_p0_pps;
+     output_buffer << "port0 Packets per second: ";
+    if (current_ban_settings.enable_ban_for_port0_pps) {
+        output_buffer << current_ban_settings.ban_threshold_port0_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "dns Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_dns_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_dns_mbps;
     } else {
         output_buffer << "disabled";
     }
 
     output_buffer << "\n";
 
-    output_buffer << "P53 Mbps per second: ";
-    if (current_ban_settings.enable_ban_for_p53_bandwidth) {
-        output_buffer << current_ban_settings.ban_threshold_p53_mbps;
+     output_buffer << "dns Packets per second: ";
+    if (current_ban_settings.enable_ban_for_dns_pps) {
+        output_buffer << current_ban_settings.ban_threshold_dns_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "ntp Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_ntp_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_ntp_mbps;
     } else {
         output_buffer << "disabled";
     }
 
     output_buffer << "\n";
 
-     output_buffer << "P53 Packets per second: ";
-    if (current_ban_settings.enable_ban_for_p53_pps) {
-        output_buffer << current_ban_settings.ban_threshold_p53_pps;
+     output_buffer << "ntp Packets per second: ";
+    if (current_ban_settings.enable_ban_for_ntp_pps) {
+        output_buffer << current_ban_settings.ban_threshold_ntp_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "ssdp Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_ssdp_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_ssdp_mbps;
     } else {
         output_buffer << "disabled";
     }
 
     output_buffer << "\n";
 
-    output_buffer << "P123 Mbps per second: ";
-    if (current_ban_settings.enable_ban_for_p123_bandwidth) {
-        output_buffer << current_ban_settings.ban_threshold_p123_mbps;
+     output_buffer << "ssdp Packets per second: ";
+    if (current_ban_settings.enable_ban_for_ssdp_pps) {
+        output_buffer << current_ban_settings.ban_threshold_ssdp_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "fragments Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_fragments_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_fragments_mbps;
     } else {
         output_buffer << "disabled";
     }
 
     output_buffer << "\n";
 
-     output_buffer << "P123 Packets per second: ";
-    if (current_ban_settings.enable_ban_for_p123_pps) {
-        output_buffer << current_ban_settings.ban_threshold_p123_pps;
+     output_buffer << "fragments Packets per second: ";
+    if (current_ban_settings.enable_ban_for_fragments_pps) {
+        output_buffer << current_ban_settings.ban_threshold_fragments_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "tcpsyn Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_tcpsyn_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_tcpsyn_mbps;
     } else {
         output_buffer << "disabled";
     }
 
     output_buffer << "\n";
 
-    output_buffer << "P1900 Mbps per second: ";
-    if (current_ban_settings.enable_ban_for_p1900_bandwidth) {
-        output_buffer << current_ban_settings.ban_threshold_p1900_mbps;
+     output_buffer << "tcpsyn Packets per second: ";
+    if (current_ban_settings.enable_ban_for_tcpsyn_pps) {
+        output_buffer << current_ban_settings.ban_threshold_tcpsyn_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "ldap Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_ldap_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_ldap_mbps;
     } else {
         output_buffer << "disabled";
     }
 
     output_buffer << "\n";
 
-     output_buffer << "P1900 Packets per second: ";
-    if (current_ban_settings.enable_ban_for_p1900_pps) {
-        output_buffer << current_ban_settings.ban_threshold_p1900_pps;
+     output_buffer << "ldap Packets per second: ";
+    if (current_ban_settings.enable_ban_for_ldap_pps) {
+        output_buffer << current_ban_settings.ban_threshold_ldap_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "chargen Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_chargen_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_chargen_mbps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+
+     output_buffer << "chargen Packets per second: ";
+    if (current_ban_settings.enable_ban_for_chargen_pps) {
+        output_buffer << current_ban_settings.ban_threshold_chargen_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "tcphighports Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_tcphighports_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_tcphighports_mbps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+
+     output_buffer << "tcphighports Packets per second: ";
+    if (current_ban_settings.enable_ban_for_tcphighports_pps) {
+        output_buffer << current_ban_settings.ban_threshold_tcphighports_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "udphighports Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_udphighports_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_udphighports_mbps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+
+     output_buffer << "udphighports Packets per second: ";
+    if (current_ban_settings.enable_ban_for_udphighports_pps) {
+        output_buffer << current_ban_settings.ban_threshold_udphighports_pps;
     } else {
         output_buffer << "disabled";
     }
@@ -555,77 +654,196 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
     }
 
     // rafael decoders
-    if (configuration_map.count(prefix + "ban_for_p0_pps") != 0) {
-        ban_settings.enable_ban_for_p0_pps = configuration_map[prefix + "ban_for_p0_pps"] == "on";
+    // config for decoder port0
+    if (configuration_map.count(prefix + "ban_for_port0_pps") != 0) {
+        ban_settings.enable_ban_for_port0_pps = configuration_map[prefix + "ban_for_port0_pps"] == "on";
     }
 
-    if (configuration_map.count(prefix + "ban_for_p0_bandwidth") != 0) {
-        ban_settings.enable_ban_for_p0_bandwidth = configuration_map[prefix + "ban_for_p0_bandwidth"] == "on";
+    if (configuration_map.count(prefix + "threshold_port0_pps") != 0) {
+            ban_settings.ban_threshold_port0_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_port0_pps"]);
     }
 
-    if (configuration_map.count(prefix + "threshold_p0_pps") != 0) {
-            ban_settings.ban_threshold_p0_pps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p0_pps"]);
+    if (configuration_map.count(prefix + "threshold_port0_pps") != 0) {
+            ban_settings.ban_threshold_port0_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_port0_pps"]);
     }
 
-    if (configuration_map.count(prefix + "threshold_p0_mbps") != 0) {
-            ban_settings.ban_threshold_p0_mbps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p0_mbps"]);
+    if (configuration_map.count(prefix + "threshold_port0_mbps") != 0) {
+            ban_settings.ban_threshold_port0_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_port0_mbps"]);
     }
-    
-    if (configuration_map.count(prefix + "ban_for_p53_pps") != 0) {
-        ban_settings.enable_ban_for_p53_pps = configuration_map[prefix + "ban_for_p53_pps"] == "on";
-    }
-
-    if (configuration_map.count(prefix + "ban_for_p53_bandwidth") != 0) {
-        ban_settings.enable_ban_for_p53_bandwidth = configuration_map[prefix + "ban_for_p53_bandwidth"] == "on";
+    // config for decoder dns
+    if (configuration_map.count(prefix + "ban_for_dns_pps") != 0) {
+        ban_settings.enable_ban_for_dns_pps = configuration_map[prefix + "ban_for_dns_pps"] == "on";
     }
 
-    if (configuration_map.count(prefix + "threshold_p53_pps") != 0) {
-            ban_settings.ban_threshold_p53_pps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p53_pps"]);
+    if (configuration_map.count(prefix + "threshold_dns_pps") != 0) {
+            ban_settings.ban_threshold_dns_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_dns_pps"]);
     }
 
-    if (configuration_map.count(prefix + "threshold_p53_mbps") != 0) {
-            ban_settings.ban_threshold_p53_mbps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p53_mbps"]);
+    if (configuration_map.count(prefix + "threshold_dns_pps") != 0) {
+            ban_settings.ban_threshold_dns_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_dns_pps"]);
     }
 
-    if (configuration_map.count(prefix + "ban_for_p123_pps") != 0) {
-        ban_settings.enable_ban_for_p123_pps = configuration_map[prefix + "ban_for_p123_pps"] == "on";
+    if (configuration_map.count(prefix + "threshold_dns_mbps") != 0) {
+            ban_settings.ban_threshold_dns_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_dns_mbps"]);
+    }
+    // config for decoder ntp
+    if (configuration_map.count(prefix + "ban_for_ntp_pps") != 0) {
+        ban_settings.enable_ban_for_ntp_pps = configuration_map[prefix + "ban_for_ntp_pps"] == "on";
     }
 
-    if (configuration_map.count(prefix + "ban_for_p123_bandwidth") != 0) {
-        ban_settings.enable_ban_for_p123_bandwidth = configuration_map[prefix + "ban_for_p123_bandwidth"] == "on";
+    if (configuration_map.count(prefix + "threshold_ntp_pps") != 0) {
+            ban_settings.ban_threshold_ntp_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ntp_pps"]);
     }
 
-    if (configuration_map.count(prefix + "threshold_p123_pps") != 0) {
-            ban_settings.ban_threshold_p123_pps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p123_pps"]);
+    if (configuration_map.count(prefix + "threshold_ntp_pps") != 0) {
+            ban_settings.ban_threshold_ntp_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ntp_pps"]);
     }
 
-    if (configuration_map.count(prefix + "threshold_p123_mbps") != 0) {
-            ban_settings.ban_threshold_p123_mbps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p123_mbps"]);
+    if (configuration_map.count(prefix + "threshold_ntp_mbps") != 0) {
+            ban_settings.ban_threshold_ntp_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ntp_mbps"]);
+    }
+    // config for decoder ssdp
+    if (configuration_map.count(prefix + "ban_for_ssdp_pps") != 0) {
+        ban_settings.enable_ban_for_ssdp_pps = configuration_map[prefix + "ban_for_ssdp_pps"] == "on";
     }
 
-    if (configuration_map.count(prefix + "ban_for_p1900_pps") != 0) {
-        ban_settings.enable_ban_for_p1900_pps = configuration_map[prefix + "ban_for_p1900_pps"] == "on";
+    if (configuration_map.count(prefix + "threshold_ssdp_pps") != 0) {
+            ban_settings.ban_threshold_ssdp_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ssdp_pps"]);
     }
 
-    if (configuration_map.count(prefix + "threshold_p1900_pps") != 0) {
-            ban_settings.ban_threshold_p1900_pps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p1900_pps"]);
+    if (configuration_map.count(prefix + "threshold_ssdp_pps") != 0) {
+            ban_settings.ban_threshold_ssdp_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ssdp_pps"]);
     }
 
-    if (configuration_map.count(prefix + "threshold_p1900_pps") != 0) {
-            ban_settings.ban_threshold_p1900_pps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p1900_pps"]);
+    if (configuration_map.count(prefix + "threshold_ssdp_mbps") != 0) {
+            ban_settings.ban_threshold_ssdp_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ssdp_mbps"]);
+    }
+    // config for decoder fragments
+    if (configuration_map.count(prefix + "ban_for_fragments_pps") != 0) {
+        ban_settings.enable_ban_for_fragments_pps = configuration_map[prefix + "ban_for_fragments_pps"] == "on";
     }
 
-    if (configuration_map.count(prefix + "threshold_p1900_mbps") != 0) {
-            ban_settings.ban_threshold_p1900_mbps =
-                convert_string_to_integer(configuration_map[prefix + "threshold_p1900_mbps"]);
+    if (configuration_map.count(prefix + "threshold_fragments_pps") != 0) {
+            ban_settings.ban_threshold_fragments_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_fragments_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_fragments_pps") != 0) {
+            ban_settings.ban_threshold_fragments_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_fragments_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_fragments_mbps") != 0) {
+            ban_settings.ban_threshold_fragments_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_fragments_mbps"]);
+    }
+    // config for decoder tcpsyn
+    if (configuration_map.count(prefix + "ban_for_tcpsyn_pps") != 0) {
+        ban_settings.enable_ban_for_tcpsyn_pps = configuration_map[prefix + "ban_for_tcpsyn_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_tcpsyn_pps") != 0) {
+            ban_settings.ban_threshold_tcpsyn_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_tcpsyn_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_tcpsyn_pps") != 0) {
+            ban_settings.ban_threshold_tcpsyn_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_tcpsyn_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_tcpsyn_mbps") != 0) {
+            ban_settings.ban_threshold_tcpsyn_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_tcpsyn_mbps"]);
+    }
+    // config for decoder ldap
+    if (configuration_map.count(prefix + "ban_for_ldap_pps") != 0) {
+        ban_settings.enable_ban_for_ldap_pps = configuration_map[prefix + "ban_for_ldap_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_ldap_pps") != 0) {
+            ban_settings.ban_threshold_ldap_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ldap_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_ldap_pps") != 0) {
+            ban_settings.ban_threshold_ldap_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ldap_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_ldap_mbps") != 0) {
+            ban_settings.ban_threshold_ldap_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_ldap_mbps"]);
+    }
+    // config for decoder chargen
+    if (configuration_map.count(prefix + "ban_for_chargen_pps") != 0) {
+        ban_settings.enable_ban_for_chargen_pps = configuration_map[prefix + "ban_for_chargen_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_chargen_pps") != 0) {
+            ban_settings.ban_threshold_chargen_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_chargen_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_chargen_pps") != 0) {
+            ban_settings.ban_threshold_chargen_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_chargen_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_chargen_mbps") != 0) {
+            ban_settings.ban_threshold_chargen_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_chargen_mbps"]);
+    }
+
+    // config for decoder tcphighports
+    if (configuration_map.count(prefix + "ban_for_tcphighports_pps") != 0) {
+        ban_settings.enable_ban_for_tcphighports_pps = configuration_map[prefix + "ban_for_tcphighports_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_tcphighports_pps") != 0) {
+            ban_settings.ban_threshold_tcphighports_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_tcphighports_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_tcphighports_pps") != 0) {
+            ban_settings.ban_threshold_tcphighports_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_tcphighports_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_tcphighports_mbps") != 0) {
+            ban_settings.ban_threshold_tcphighports_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_tcphighports_mbps"]);
+    }
+    // config for decoder udphighports
+    if (configuration_map.count(prefix + "ban_for_udphighports_pps") != 0) {
+        ban_settings.enable_ban_for_udphighports_pps = configuration_map[prefix + "ban_for_udphighports_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_udphighports_pps") != 0) {
+            ban_settings.ban_threshold_udphighports_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_udphighports_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_udphighports_pps") != 0) {
+            ban_settings.ban_threshold_udphighports_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_udphighports_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_udphighports_mbps") != 0) {
+            ban_settings.ban_threshold_udphighports_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_udphighports_mbps"]);
     }
 
     if (configuration_map.count(prefix + "enable_ban_subnets") != 0) {
@@ -744,59 +962,144 @@ bool we_should_ban_this_entity(const subnet_counter_t& average_speed_element,
     }
 
     // rafael decoders
-    if (current_ban_settings.enable_ban_for_p0_pps &&
-        exceed_pps_speed(average_speed_element.decoder_p0.in_packets, average_speed_element.decoder_p0.out_packets,
-                         current_ban_settings.ban_threshold_p0_pps)) {
+    // settings for port0
+    if (current_ban_settings.enable_ban_for_port0_pps &&
+        exceed_pps_speed(average_speed_element.decoder_port0.in_packets, average_speed_element.decoder_port0.out_packets,
+                         current_ban_settings.ban_threshold_port0_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::port0_packets_per_second;
         return true;
     }
 
-    if (current_ban_settings.enable_ban_for_p0_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_p0.in_bytes, average_speed_element.decoder_p0.out_bytes,
-                          current_ban_settings.ban_threshold_p0_mbps)) {
+    if (current_ban_settings.enable_ban_for_port0_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_port0.in_bytes, average_speed_element.decoder_port0.out_bytes,
+                          current_ban_settings.ban_threshold_port0_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::port0_bytes_per_second;
         return true;
     }
-
-    if (current_ban_settings.enable_ban_for_p53_pps &&
-        exceed_pps_speed(average_speed_element.decoder_p53.in_packets, average_speed_element.decoder_p53.out_packets,
-                         current_ban_settings.ban_threshold_p53_pps)) {
-        attack_detection_source = attack_detection_threshold_type_t::port53_packets_per_second;
+    // settings for dns
+    if (current_ban_settings.enable_ban_for_dns_pps &&
+        exceed_pps_speed(average_speed_element.decoder_dns.in_packets, average_speed_element.decoder_dns.out_packets,
+                         current_ban_settings.ban_threshold_dns_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::dns_packets_per_second;
         return true;
     }
 
-    if (current_ban_settings.enable_ban_for_p53_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_p53.in_bytes, average_speed_element.decoder_p53.out_bytes,
-                          current_ban_settings.ban_threshold_p53_mbps)) {
-        attack_detection_source = attack_detection_threshold_type_t::port53_bytes_per_second;
+    if (current_ban_settings.enable_ban_for_dns_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_dns.in_bytes, average_speed_element.decoder_dns.out_bytes,
+                          current_ban_settings.ban_threshold_dns_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::dns_bytes_per_second;
+        return true;
+    }
+    // settings for ntp
+    if (current_ban_settings.enable_ban_for_ntp_pps &&
+        exceed_pps_speed(average_speed_element.decoder_ntp.in_packets, average_speed_element.decoder_ntp.out_packets,
+                         current_ban_settings.ban_threshold_ntp_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ntp_packets_per_second;
         return true;
     }
 
-    if (current_ban_settings.enable_ban_for_p123_pps &&
-        exceed_pps_speed(average_speed_element.decoder_p123.in_packets, average_speed_element.decoder_p123.out_packets,
-                         current_ban_settings.ban_threshold_p123_pps)) {
-        attack_detection_source = attack_detection_threshold_type_t::port123_packets_per_second;
+    if (current_ban_settings.enable_ban_for_ntp_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_ntp.in_bytes, average_speed_element.decoder_ntp.out_bytes,
+                          current_ban_settings.ban_threshold_ntp_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ntp_bytes_per_second;
+        return true;
+    }
+    // settings for ssdp
+    if (current_ban_settings.enable_ban_for_ssdp_pps &&
+        exceed_pps_speed(average_speed_element.decoder_ssdp.in_packets, average_speed_element.decoder_ssdp.out_packets,
+                         current_ban_settings.ban_threshold_ssdp_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ssdp_packets_per_second;
         return true;
     }
 
-    if (current_ban_settings.enable_ban_for_p123_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_p123.in_bytes, average_speed_element.decoder_p123.out_bytes,
-                          current_ban_settings.ban_threshold_p123_mbps)) {
-        attack_detection_source = attack_detection_threshold_type_t::port123_bytes_per_second;
+    if (current_ban_settings.enable_ban_for_ssdp_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_ssdp.in_bytes, average_speed_element.decoder_ssdp.out_bytes,
+                          current_ban_settings.ban_threshold_ssdp_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ssdp_bytes_per_second;
+        return true;
+    }
+    // settings for fragments
+    if (current_ban_settings.enable_ban_for_fragments_pps &&
+        exceed_pps_speed(average_speed_element.fragmented.in_packets, average_speed_element.fragmented.out_packets,
+                         current_ban_settings.ban_threshold_fragments_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ip_fragments_packets_per_second;
         return true;
     }
 
-    if (current_ban_settings.enable_ban_for_p1900_pps &&
-        exceed_pps_speed(average_speed_element.decoder_p1900.in_packets, average_speed_element.decoder_p1900.out_packets,
-                         current_ban_settings.ban_threshold_p1900_pps)) {
-        attack_detection_source = attack_detection_threshold_type_t::port1900_packets_per_second;
+    if (current_ban_settings.enable_ban_for_fragments_bandwidth &&
+        exceed_mbps_speed(average_speed_element.fragmented.in_bytes, average_speed_element.fragmented.out_bytes,
+                          current_ban_settings.ban_threshold_fragments_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ip_fragments_bytes_per_second;
+        return true;
+    }
+    // settings for tcpsyn
+    if (current_ban_settings.enable_ban_for_tcpsyn_pps &&
+        exceed_pps_speed(average_speed_element.tcp_syn.in_packets, average_speed_element.tcp_syn.out_packets,
+                         current_ban_settings.ban_threshold_tcpsyn_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcp_syn_packets_per_second;
         return true;
     }
 
-    if (current_ban_settings.enable_ban_for_p1900_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_p1900.in_bytes, average_speed_element.decoder_p1900.out_bytes,
-                          current_ban_settings.ban_threshold_p1900_mbps)) {
-        attack_detection_source = attack_detection_threshold_type_t::port1900_bytes_per_second;
+    if (current_ban_settings.enable_ban_for_tcpsyn_bandwidth &&
+        exceed_mbps_speed(average_speed_element.tcp_syn.in_bytes, average_speed_element.tcp_syn.out_bytes,
+                          current_ban_settings.ban_threshold_tcpsyn_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcp_syn_bytes_per_second;
+        return true;
+    }
+    // settings for ldap
+    if (current_ban_settings.enable_ban_for_ldap_pps &&
+        exceed_pps_speed(average_speed_element.decoder_ldap.in_packets, average_speed_element.decoder_ldap.out_packets,
+                         current_ban_settings.ban_threshold_ldap_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ldap_packets_per_second;
+        return true;
+    }
+
+    if (current_ban_settings.enable_ban_for_ldap_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_ldap.in_bytes, average_speed_element.decoder_ldap.out_bytes,
+                          current_ban_settings.ban_threshold_ldap_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ldap_bytes_per_second;
+        return true;
+    }
+    // settings for chargen
+    if (current_ban_settings.enable_ban_for_chargen_pps &&
+        exceed_pps_speed(average_speed_element.decoder_chargen.in_packets, average_speed_element.decoder_chargen.out_packets,
+                         current_ban_settings.ban_threshold_chargen_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::chargen_packets_per_second;
+        return true;
+    }
+
+    if (current_ban_settings.enable_ban_for_chargen_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_chargen.in_bytes, average_speed_element.decoder_chargen.out_bytes,
+                          current_ban_settings.ban_threshold_chargen_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::chargen_bytes_per_second;
+        return true;
+    }
+    // settings for tcphighports
+    if (current_ban_settings.enable_ban_for_tcphighports_pps &&
+        exceed_pps_speed(average_speed_element.decoder_tcphighports.in_packets, average_speed_element.decoder_tcphighports.out_packets,
+                         current_ban_settings.ban_threshold_tcphighports_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcphighports_packets_per_second;
+        return true;
+    }
+
+    if (current_ban_settings.enable_ban_for_tcphighports_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_tcphighports.in_bytes, average_speed_element.decoder_tcphighports.out_bytes,
+                          current_ban_settings.ban_threshold_tcphighports_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcphighports_bytes_per_second;
+        return true;
+    }
+    // settings for udphighports
+    if (current_ban_settings.enable_ban_for_udphighports_pps &&
+        exceed_pps_speed(average_speed_element.decoder_udphighports.in_packets, average_speed_element.decoder_udphighports.out_packets,
+                         current_ban_settings.ban_threshold_udphighports_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::udphighports_packets_per_second;
+        return true;
+    }
+
+    if (current_ban_settings.enable_ban_for_udphighports_bandwidth &&
+        exceed_mbps_speed(average_speed_element.decoder_udphighports.in_bytes, average_speed_element.decoder_udphighports.out_bytes,
+                          current_ban_settings.ban_threshold_udphighports_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::udphighports_bytes_per_second;
         return true;
     }
 
@@ -1171,42 +1474,6 @@ bool serialize_traffic_counters_to_json(const subnet_counter_t& traffic_counters
         json_details["incoming_syn_tcp_pps"] = traffic_counters.tcp_syn.in_packets;
         json_details["outgoing_syn_tcp_pps"] = traffic_counters.tcp_syn.out_packets;
 
-        json_details["incoming_decoder_p0_traffic"]      = traffic_counters.decoder_p0.in_bytes;
-        json_details["incoming_decoder0_traffic_bits"] = traffic_counters.decoder_p0.in_bytes * 8;
-
-        json_details["outgoing_decoder_p0_traffic"]      = traffic_counters.decoder_p0.out_bytes;
-        json_details["outgoing_decoder_p0_traffic_bits"] = traffic_counters.decoder_p0.out_bytes * 8;
-
-        json_details["incoming_decoder_p0_pps"] = traffic_counters.decoder_p0.in_packets;
-        json_details["outgoing_decoder_p0_pps"] = traffic_counters.decoder_p0.out_packets;
-
-        json_details["incoming_decoder_p53_traffic"]      = traffic_counters.decoder_p53.in_bytes;
-        json_details["incoming_decoder_p53_traffic_bits"] = traffic_counters.decoder_p53.in_bytes * 8;
-
-        json_details["outgoing_decoder_p53_traffic"]      = traffic_counters.decoder_p53.out_bytes;
-        json_details["outgoing_decoder_p53_traffic_bits"] = traffic_counters.decoder_p53.out_bytes * 8;
-
-        json_details["incoming_decoder_p53_pps"] = traffic_counters.decoder_p53.in_packets;
-        json_details["outgoing_decoder_p53_pps"] = traffic_counters.decoder_p53.out_packets;
-
-        json_details["incoming_decoder_p123_traffic"]      = traffic_counters.decoder_p123.in_bytes;
-        json_details["incoming_decoder_p123_traffic_bits"] = traffic_counters.decoder_p123.in_bytes * 8;
-
-        json_details["outgoing_decoder_p123_traffic"]      = traffic_counters.decoder_p123.out_bytes;
-        json_details["outgoing_decoder_p123_traffic_bits"] = traffic_counters.decoder_p123.out_bytes * 8;
-
-        json_details["incoming_decoder_p123_pps"] = traffic_counters.decoder_p123.in_packets;
-        json_details["outgoing_decoder_p123_pps"] = traffic_counters.decoder_p123.out_packets;
-
-        json_details["incoming_decoder_p1900_traffic"]      = traffic_counters.decoder_p1900.in_bytes;
-        json_details["incoming_decoder_p1900_traffic_bits"] = traffic_counters.decoder_p1900.in_bytes * 8;
-
-        json_details["outgoing_decoder_p1900_traffic"]      = traffic_counters.decoder_p1900.out_bytes;
-        json_details["outgoing_decoder_p1900_traffic_bits"] = traffic_counters.decoder_p1900.out_bytes * 8;
-
-        json_details["incoming_decoder_p1900_pps"] = traffic_counters.decoder_p1900.in_packets;
-        json_details["outgoing_decoder_p1900_pps"] = traffic_counters.decoder_p1900.out_packets;
-
         json_details["incoming_udp_traffic"]      = traffic_counters.udp.in_bytes;
         json_details["incoming_udp_traffic_bits"] = traffic_counters.udp.in_bytes * 8;
 
@@ -1224,6 +1491,98 @@ bool serialize_traffic_counters_to_json(const subnet_counter_t& traffic_counters
 
         json_details["incoming_icmp_pps"] = traffic_counters.icmp.in_packets;
         json_details["outgoing_icmp_pps"] = traffic_counters.icmp.out_packets;
+
+        // rafael decoders
+        // decoder port0
+        json_details["incoming_decoder_port0_traffic"]      = traffic_counters.decoder_port0.in_bytes;
+        json_details["incoming_decoder_port0_traffic_bits"] = traffic_counters.decoder_port0.in_bytes * 8;
+
+        json_details["outgoing_decoder_port0_traffic"]      = traffic_counters.decoder_port0.out_bytes;
+        json_details["outgoing_decoder_port0_traffic_bits"] = traffic_counters.decoder_port0.out_bytes * 8;
+
+        json_details["incoming_decoder_port0_pps"] = traffic_counters.decoder_port0.in_packets;
+        json_details["outgoing_decoder_port0_pps"] = traffic_counters.decoder_port0.out_packets;
+        // decoder dns
+        json_details["incoming_decoder_dns_traffic"]      = traffic_counters.decoder_dns.in_bytes;
+        json_details["incoming_decoder_dns_traffic_bits"] = traffic_counters.decoder_dns.in_bytes * 8;
+
+        json_details["outgoing_decoder_dns_traffic"]      = traffic_counters.decoder_dns.out_bytes;
+        json_details["outgoing_decoder_dns_traffic_bits"] = traffic_counters.decoder_dns.out_bytes * 8;
+
+        json_details["incoming_decoder_dns_pps"] = traffic_counters.decoder_dns.in_packets;
+        json_details["outgoing_decoder_dns_pps"] = traffic_counters.decoder_dns.out_packets;
+        // decoder ntp
+        json_details["incoming_decoder_ntp_traffic"]      = traffic_counters.decoder_ntp.in_bytes;
+        json_details["incoming_decoder_ntp_traffic_bits"] = traffic_counters.decoder_ntp.in_bytes * 8;
+
+        json_details["outgoing_decoder_ntp_traffic"]      = traffic_counters.decoder_ntp.out_bytes;
+        json_details["outgoing_decoder_ntp_traffic_bits"] = traffic_counters.decoder_ntp.out_bytes * 8;
+
+        json_details["incoming_decoder_ntp_pps"] = traffic_counters.decoder_ntp.in_packets;
+        json_details["outgoing_decoder_ntp_pps"] = traffic_counters.decoder_ntp.out_packets;
+        // decoder ssdp
+        json_details["incoming_decoder_ssdp_traffic"]      = traffic_counters.decoder_ssdp.in_bytes;
+        json_details["incoming_decoder_ssdp_traffic_bits"] = traffic_counters.decoder_ssdp.in_bytes * 8;
+
+        json_details["outgoing_decoder_ssdp_traffic"]      = traffic_counters.decoder_ssdp.out_bytes;
+        json_details["outgoing_decoder_ssdp_traffic_bits"] = traffic_counters.decoder_ssdp.out_bytes * 8;
+
+        json_details["incoming_decoder_ssdp_pps"] = traffic_counters.decoder_ssdp.in_packets;
+        json_details["outgoing_decoder_ssdp_pps"] = traffic_counters.decoder_ssdp.out_packets;
+        // decoder fragments
+        json_details["incoming_decoder_fragments_traffic"]      = traffic_counters.fragmented.in_bytes;
+        json_details["incoming_decoder_fragments_traffic_bits"] = traffic_counters.fragmented.in_bytes * 8;
+
+        json_details["outgoing_decoder_fragments_traffic"]      = traffic_counters.fragmented.out_bytes;
+        json_details["outgoing_decoder_fragments_traffic_bits"] = traffic_counters.fragmented.out_bytes * 8;
+
+        json_details["incoming_decoder_fragments_pps"] = traffic_counters.fragmented.in_packets;
+        json_details["outgoing_decoder_fragments_pps"] = traffic_counters.fragmented.out_packets;
+        // decoder tcpsyn
+        json_details["incoming_decoder_tcpsyn_traffic"]      = traffic_counters.tcp_syn.in_bytes;
+        json_details["incoming_decoder_tcpsyn_traffic_bits"] = traffic_counters.tcp_syn.in_bytes * 8;
+
+        json_details["outgoing_decoder_tcpsyn_traffic"]      = traffic_counters.tcp_syn.out_bytes;
+        json_details["outgoing_decoder_tcpsyn_traffic_bits"] = traffic_counters.tcp_syn.out_bytes * 8;
+
+        json_details["incoming_decoder_tcpsyn_pps"] = traffic_counters.tcp_syn.in_packets;
+        json_details["outgoing_decoder_tcpsyn_pps"] = traffic_counters.tcp_syn.out_packets;
+        // decoder ldap
+        json_details["incoming_decoder_ldap_traffic"]      = traffic_counters.decoder_ldap.in_bytes;
+        json_details["incoming_decoder_ldap_traffic_bits"] = traffic_counters.decoder_ldap.in_bytes * 8;
+
+        json_details["outgoing_decoder_ldap_traffic"]      = traffic_counters.decoder_ldap.out_bytes;
+        json_details["outgoing_decoder_ldap_traffic_bits"] = traffic_counters.decoder_ldap.out_bytes * 8;
+
+        json_details["incoming_decoder_ldap_pps"] = traffic_counters.decoder_ldap.in_packets;
+        json_details["outgoing_decoder_ldap_pps"] = traffic_counters.decoder_ldap.out_packets;
+        // decoder chargen
+        json_details["incoming_decoder_chargen_traffic"]      = traffic_counters.decoder_chargen.in_bytes;
+        json_details["incoming_decoder_chargen_traffic_bits"] = traffic_counters.decoder_chargen.in_bytes * 8;
+
+        json_details["outgoing_decoder_chargen_traffic"]      = traffic_counters.decoder_chargen.out_bytes;
+        json_details["outgoing_decoder_chargen_traffic_bits"] = traffic_counters.decoder_chargen.out_bytes * 8;
+
+        json_details["incoming_decoder_chargen_pps"] = traffic_counters.decoder_chargen.in_packets;
+        json_details["outgoing_decoder_chargen_pps"] = traffic_counters.decoder_chargen.out_packets;
+        // decoder tcphighports
+        json_details["incoming_decoder_tcphighports_traffic"]      = traffic_counters.decoder_tcphighports.in_bytes;
+        json_details["incoming_decoder_tcphighports_traffic_bits"] = traffic_counters.decoder_tcphighports.in_bytes * 8;
+
+        json_details["outgoing_decoder_tcphighports_traffic"]      = traffic_counters.decoder_tcphighports.out_bytes;
+        json_details["outgoing_decoder_tcphighports_traffic_bits"] = traffic_counters.decoder_tcphighports.out_bytes * 8;
+
+        json_details["incoming_decoder_tcphighports_pps"] = traffic_counters.decoder_tcphighports.in_packets;
+        json_details["outgoing_decoder_tcphighports_pps"] = traffic_counters.decoder_tcphighports.out_packets;
+        // decoder udphighports
+        json_details["incoming_decoder_udphighports_traffic"]      = traffic_counters.decoder_udphighports.in_bytes;
+        json_details["incoming_decoder_udphighports_traffic_bits"] = traffic_counters.decoder_udphighports.in_bytes * 8;
+
+        json_details["outgoing_decoder_udphighports_traffic"]      = traffic_counters.decoder_udphighports.out_bytes;
+        json_details["outgoing_decoder_udphighports_traffic_bits"] = traffic_counters.decoder_udphighports.out_bytes * 8;
+
+        json_details["incoming_decoder_udphighports_pps"] = traffic_counters.decoder_udphighports.in_packets;
+        json_details["outgoing_decoder_udphighports_pps"] = traffic_counters.decoder_udphighports.out_packets;
 
     } catch (...) {
         logger << log4cpp::Priority::ERROR << "Exception was triggered in attack details JSON encoder";
@@ -1882,22 +2241,47 @@ std::string get_human_readable_threshold_type(attack_detection_threshold_type_t 
         return "udp bytes per second";
     } else if (detecttion_type == attack_detection_threshold_type_t::icmp_bytes_per_second) {
         return "icmp bytes per second";
-    } else if (detecttion_type == attack_detection_threshold_type_t::port0_packets_per_second) {
+    } // rafael decoders
+    else if (detecttion_type == attack_detection_threshold_type_t::port0_packets_per_second) {
         return "port0 packets per second";
     } else if (detecttion_type == attack_detection_threshold_type_t::port0_bytes_per_second) {
         return "port0 bytes per second";
-    } else if (detecttion_type == attack_detection_threshold_type_t::port53_packets_per_second) {
-        return "port53 packets per second";
-    } else if (detecttion_type == attack_detection_threshold_type_t::port53_bytes_per_second) {
-        return "port53 bytes per second";
-    } else if (detecttion_type == attack_detection_threshold_type_t::port123_packets_per_second) {
-        return "port123 packets per second";
-    } else if (detecttion_type == attack_detection_threshold_type_t::port123_bytes_per_second) {
-        return "port123 bytes per second";
-    } else if (detecttion_type == attack_detection_threshold_type_t::port1900_packets_per_second) {
-        return "port1900 packets per second";
-    } else if (detecttion_type == attack_detection_threshold_type_t::port1900_bytes_per_second) {
-        return "port1900 bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::dns_packets_per_second) {
+        return "dns packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::dns_bytes_per_second) {
+        return "dns bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ntp_packets_per_second) {
+        return "ntp packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ntp_bytes_per_second) {
+        return "ntp bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ssdp_packets_per_second) {
+        return "ssdp packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ssdp_bytes_per_second) {
+        return "ssdp bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ip_fragments_packets_per_second) {
+        return "fragments packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ip_fragments_bytes_per_second) {
+        return "fragments bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::tcp_syn_packets_per_second) {
+        return "tcpsyn packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::tcp_syn_bytes_per_second) {
+        return "tcpsyn bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ldap_packets_per_second) {
+        return "ldap packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::ldap_bytes_per_second) {
+        return "ldap bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::chargen_packets_per_second) {
+        return "chargen packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::chargen_bytes_per_second) {
+        return "chargen bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::tcphighports_packets_per_second) {
+        return "tcphighports packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::tcphighports_bytes_per_second) {
+        return "tcphighports bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::udphighports_packets_per_second) {
+        return "udphighports packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::udphighports_bytes_per_second) {
+        return "udphighports bytes per second";
     }
 
     return "unknown";

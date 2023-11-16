@@ -77,17 +77,30 @@ enum class attack_detection_threshold_type_t {
     ip_fragments_packets_per_second,
     ip_fragments_bytes_per_second,
 
+    // decoder port0
     port0_packets_per_second,
     port0_bytes_per_second,
-
-    port53_packets_per_second,
-    port53_bytes_per_second,
-
-    port123_packets_per_second,
-    port123_bytes_per_second,
-
-    port1900_packets_per_second,
-    port1900_bytes_per_second
+    // decoder dns
+    dns_packets_per_second,
+    dns_bytes_per_second,
+    // decoder ntp
+    ntp_packets_per_second,
+    ntp_bytes_per_second,
+    // decoder ssdp
+    ssdp_packets_per_second,
+    ssdp_bytes_per_second,
+    // decoder ldap
+    ldap_packets_per_second,
+    ldap_bytes_per_second,
+    // decoder chargen
+    chargen_packets_per_second,
+    chargen_bytes_per_second,
+    // decoder tcphighports
+    tcphighports_packets_per_second,
+    tcphighports_bytes_per_second,
+    // decoder udphighports
+    udphighports_packets_per_second,
+    udphighports_bytes_per_second
 
 };
 
@@ -266,10 +279,22 @@ enum attack_type_t {
     ATTACK_ICMP_FLOOD             = 3,
     ATTACK_UDP_FLOOD              = 4,
     ATTACK_IP_FRAGMENTATION_FLOOD = 5,
-    ATTACK_PORT0                  = 6,
-    ATTACK_PORT53                 = 7,
-    ATTACK_PORT123                = 8,
-    ATTACK_PORT1900               = 9
+    // decoder port0
+    ATTACK_port0                  = 6,
+    // decoder dns
+    ATTACK_dns                    = 7,
+    // decoder ntp
+    ATTACK_ntp                    = 8,
+    // decoder ssdp
+    ATTACK_ssdp                   = 9,
+    // decoder ldap
+    ATTACK_ldap                   = 10,
+    // decoder chargen
+    ATTACK_chargen                = 11,
+    // decoder tcphighports
+    ATTACK_tcphighports           = 12,
+    // decoder udphighports
+    ATTACK_udphighports           = 13
 };
 
 // Amplification types
@@ -375,11 +400,17 @@ class ban_settings_t {
       enable_ban_for_icmp_bandwidth(false), ban_threshold_tcp_mbps(0), ban_threshold_tcp_pps(0),
       ban_threshold_udp_mbps(0), ban_threshold_udp_pps(0), ban_threshold_icmp_mbps(0), ban_threshold_icmp_pps(0),
       ban_threshold_mbps(0), ban_threshold_flows(0), ban_threshold_pps(0),
-      enable_ban_for_p0_pps(false), enable_ban_for_p0_bandwidth(false), ban_threshold_p0_mbps(0), ban_threshold_p0_pps(0),
-      enable_ban_for_p53_pps(false), enable_ban_for_p53_bandwidth(false), ban_threshold_p53_mbps(0), ban_threshold_p53_pps(0),
-      enable_ban_for_p123_pps(false), enable_ban_for_p123_bandwidth(false), ban_threshold_p123_mbps(0), ban_threshold_p123_pps(0),
-      enable_ban_for_p1900_pps(false), enable_ban_for_p1900_bandwidth(false), ban_threshold_p1900_mbps(0), 
-      ban_threshold_p1900_pps(0), enable_ban_subnets(false) {
+      enable_ban_for_port0_pps(false), enable_ban_for_port0_bandwidth(false), ban_threshold_port0_mbps(0), ban_threshold_port0_pps(0),
+      enable_ban_for_dns_pps(false), enable_ban_for_dns_bandwidth(false), ban_threshold_dns_mbps(0), ban_threshold_dns_pps(0),
+      enable_ban_for_ntp_pps(false), enable_ban_for_ntp_bandwidth(false), ban_threshold_ntp_mbps(0), ban_threshold_ntp_pps(0),
+      enable_ban_for_ssdp_pps(false), enable_ban_for_ssdp_bandwidth(false), ban_threshold_ssdp_mbps(0), ban_threshold_ssdp_pps(0),
+      enable_ban_for_fragments_pps(false), enable_ban_for_fragments_bandwidth(false), ban_threshold_fragments_mbps(0), ban_threshold_fragments_pps(0),
+      enable_ban_for_tcpsyn_pps(false), enable_ban_for_tcpsyn_bandwidth(false), ban_threshold_tcpsyn_mbps(0), ban_threshold_tcpsyn_pps(0),
+      enable_ban_for_ldap_pps(false), enable_ban_for_ldap_bandwidth(false), ban_threshold_ldap_mbps(0), ban_threshold_ldap_pps(0),
+      enable_ban_for_chargen_pps(false), enable_ban_for_chargen_bandwidth(false), ban_threshold_chargen_mbps(0), ban_threshold_chargen_pps(0),
+      enable_ban_for_tcphighports_pps(false), enable_ban_for_tcphighports_bandwidth(false), ban_threshold_tcphighports_mbps(0), ban_threshold_tcphighports_pps(0),
+      enable_ban_for_udphighports_pps(false), enable_ban_for_udphighports_bandwidth(false), ban_threshold_udphighports_mbps(0), ban_threshold_udphighports_pps(0),
+      enable_ban_subnets(false) {
     }
     bool enable_ban;
     bool enable_ban_ipv6;
@@ -411,25 +442,56 @@ class ban_settings_t {
     unsigned int ban_threshold_pps;
 
     // rafael decoders 
-    bool enable_ban_for_p0_pps;
-    bool enable_ban_for_p0_bandwidth;
-    unsigned int ban_threshold_p0_mbps;
-    unsigned int ban_threshold_p0_pps;
-
-    bool enable_ban_for_p53_pps;
-    bool enable_ban_for_p53_bandwidth;
-    unsigned int ban_threshold_p53_mbps;
-    unsigned int ban_threshold_p53_pps;
-
-    bool enable_ban_for_p123_pps;
-    bool enable_ban_for_p123_bandwidth;
-    unsigned int ban_threshold_p123_mbps;
-    unsigned int ban_threshold_p123_pps;
-
-    bool enable_ban_for_p1900_pps;
-    bool enable_ban_for_p1900_bandwidth;
-    unsigned int ban_threshold_p1900_mbps;
-    unsigned int ban_threshold_p1900_pps;
+    // decoder port0
+    bool enable_ban_for_port0_pps;
+    bool enable_ban_for_port0_bandwidth;
+    unsigned int ban_threshold_port0_mbps;
+    unsigned int ban_threshold_port0_pps;
+    // decoder dns
+    bool enable_ban_for_dns_pps;
+    bool enable_ban_for_dns_bandwidth;
+    unsigned int ban_threshold_dns_mbps;
+    unsigned int ban_threshold_dns_pps;
+    // decoder ntp
+    bool enable_ban_for_ntp_pps;
+    bool enable_ban_for_ntp_bandwidth;
+    unsigned int ban_threshold_ntp_mbps;
+    unsigned int ban_threshold_ntp_pps;
+    // decoder ssdp
+    bool enable_ban_for_ssdp_pps;
+    bool enable_ban_for_ssdp_bandwidth;
+    unsigned int ban_threshold_ssdp_mbps;
+    unsigned int ban_threshold_ssdp_pps;
+    // decoder fragments
+    bool enable_ban_for_fragments_pps;
+    bool enable_ban_for_fragments_bandwidth;
+    unsigned int ban_threshold_fragments_mbps;
+    unsigned int ban_threshold_fragments_pps;
+    // decoder tcpsyn
+    bool enable_ban_for_tcpsyn_pps;
+    bool enable_ban_for_tcpsyn_bandwidth;
+    unsigned int ban_threshold_tcpsyn_mbps;
+    unsigned int ban_threshold_tcpsyn_pps;
+    // decoder ldap
+    bool enable_ban_for_ldap_pps;
+    bool enable_ban_for_ldap_bandwidth;
+    unsigned int ban_threshold_ldap_mbps;
+    unsigned int ban_threshold_ldap_pps;
+    // decoder chargen
+    bool enable_ban_for_chargen_pps;
+    bool enable_ban_for_chargen_bandwidth;
+    unsigned int ban_threshold_chargen_mbps;
+    unsigned int ban_threshold_chargen_pps;
+    // decoder tcphighports
+    bool enable_ban_for_tcphighports_pps;
+    bool enable_ban_for_tcphighports_bandwidth;
+    unsigned int ban_threshold_tcphighports_mbps;
+    unsigned int ban_threshold_tcphighports_pps;
+    // decoder udphighports
+    bool enable_ban_for_udphighports_pps;
+    bool enable_ban_for_udphighports_bandwidth;
+    unsigned int ban_threshold_udphighports_mbps;
+    unsigned int ban_threshold_udphighports_pps;
 
     bool enable_ban_subnets;
 };

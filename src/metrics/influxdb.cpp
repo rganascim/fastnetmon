@@ -150,10 +150,24 @@ void fill_per_protocol_countres_for_influxdb(const subnet_counter_t& current_spe
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.fragmented, "fragmented");
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.tcp, "tcp");
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.tcp_syn, "tcp_syn");
-    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_p0, "decoder_p0");
-    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_p123, "decoder_p123");
-    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_p1900, "decoder_p1900");
-    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_p53, "decoder_p53");
+    
+    // rafael decoders
+    // decoder port0
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_port0, "decoder_port0");
+    // decoder dns
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_dns, "decoder_dns");
+    // decoder ntp
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_ntp, "decoder_ntp");
+    // decoder ssdp
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_ssdp, "decoder_ssdp");
+    // decoder ldap
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_ldap, "decoder_ldap");
+    // decoder chargen
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_chargen, "decoder_chargen");
+    // decoder tcphighports
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_tcphighports, "decoder_tcphighports");
+    // decoder udphighports
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_udphighports, "decoder_udphighports");
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.udp, "udp");
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.icmp, "icmp");
 }

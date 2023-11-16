@@ -273,23 +273,56 @@ void init_global_ban_settings() {
     global_ban_settings.enable_ban = true;
 
     // rafael decoders
-    global_ban_settings.enable_ban_for_p0_pps=false;
-    global_ban_settings.enable_ban_for_p0_bandwidth=false;
-    global_ban_settings.enable_ban_for_p53_pps=false;
-    global_ban_settings.enable_ban_for_p53_bandwidth=false;
-    global_ban_settings.enable_ban_for_p123_pps=false;
-    global_ban_settings.enable_ban_for_p123_bandwidth=false;
-    global_ban_settings.enable_ban_for_p1900_pps=false;
-    global_ban_settings.enable_ban_for_p1900_bandwidth=false;
-
-    global_ban_settings.ban_threshold_p0_mbps=1000;
-    global_ban_settings.ban_threshold_p0_pps=20000;
-    global_ban_settings.ban_threshold_p53_mbps=1000;
-    global_ban_settings.ban_threshold_p53_pps=20000;
-    global_ban_settings.ban_threshold_p123_mbps=1000;
-    global_ban_settings.ban_threshold_p123_pps=20000;
-    global_ban_settings.ban_threshold_p1900_mbps=1000;
-    global_ban_settings.ban_threshold_p1900_pps=20000;
+    // decoder port0
+    global_ban_settings.enable_ban_for_port0_pps=false;
+    global_ban_settings.enable_ban_for_port0_bandwidth=false;
+    global_ban_settings.ban_threshold_port0_mbps=1000;
+    global_ban_settings.ban_threshold_port0_pps=20000;
+    // decoder dns
+    global_ban_settings.enable_ban_for_dns_pps=false;
+    global_ban_settings.enable_ban_for_dns_bandwidth=false;
+    global_ban_settings.ban_threshold_dns_mbps=1000;
+    global_ban_settings.ban_threshold_dns_pps=20000;
+    // decoder ntp
+    global_ban_settings.enable_ban_for_ntp_pps=false;
+    global_ban_settings.enable_ban_for_ntp_bandwidth=false;
+    global_ban_settings.ban_threshold_ntp_mbps=1000;
+    global_ban_settings.ban_threshold_ntp_pps=20000;
+    // decoder ssdp
+    global_ban_settings.enable_ban_for_ssdp_pps=false;
+    global_ban_settings.enable_ban_for_ssdp_bandwidth=false;
+    global_ban_settings.ban_threshold_ssdp_mbps=1000;
+    global_ban_settings.ban_threshold_ssdp_pps=20000;
+    // decoder fragments
+    global_ban_settings.enable_ban_for_fragments_pps=false;
+    global_ban_settings.enable_ban_for_fragments_bandwidth=false;
+    global_ban_settings.ban_threshold_fragments_mbps=1000;
+    global_ban_settings.ban_threshold_fragments_pps=20000;
+    // decoder tcpsyn
+    global_ban_settings.enable_ban_for_tcpsyn_pps=false;
+    global_ban_settings.enable_ban_for_tcpsyn_bandwidth=false;
+    global_ban_settings.ban_threshold_tcpsyn_mbps=1000;
+    global_ban_settings.ban_threshold_tcpsyn_pps=20000;
+    // decoder ldap
+    global_ban_settings.enable_ban_for_ldap_pps=false;
+    global_ban_settings.enable_ban_for_ldap_bandwidth=false;
+    global_ban_settings.ban_threshold_ldap_mbps=1000;
+    global_ban_settings.ban_threshold_ldap_pps=20000;
+    // decoder chargen
+    global_ban_settings.enable_ban_for_chargen_pps=false;
+    global_ban_settings.enable_ban_for_chargen_bandwidth=false;
+    global_ban_settings.ban_threshold_chargen_mbps=1000;
+    global_ban_settings.ban_threshold_chargen_pps=20000;
+    // decoder tcphighports
+    global_ban_settings.enable_ban_for_tcphighports_pps=false;
+    global_ban_settings.enable_ban_for_tcphighports_bandwidth=false;
+    global_ban_settings.ban_threshold_tcphighports_mbps=1000;
+    global_ban_settings.ban_threshold_tcphighports_pps=20000;
+    // decoder udphighports
+    global_ban_settings.enable_ban_for_udphighports_pps=false;
+    global_ban_settings.enable_ban_for_udphighports_bandwidth=false;
+    global_ban_settings.ban_threshold_udphighports_mbps=1000;
+    global_ban_settings.ban_threshold_udphighports_pps=20000;
 }
 
 bool enable_connection_tracking = true;

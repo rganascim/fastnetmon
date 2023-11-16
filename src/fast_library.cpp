@@ -2398,6 +2398,39 @@ bool lookup_ip_in_integer_form_inpatricia_and_return_subnet_if_found(patricia_tr
     return true;
 }
 
+// This code lookup IP in specified patricia tree and returns prefix which it
+// belongs
+bool lookup_ipv6_inpatricia_and_return_subnet_if_found(patricia_tree_t* patricia_tree,
+                                                                     struct in6_addr client_ip,
+                                                                     subnet_ipv6_cidr_mask_t& subnet) {
+    if (patricia_tree == NULL) {
+        return false;
+    }
+
+    prefix_t prefix_for_check_address;
+    prefix_for_check_address.family = AF_INET6;
+    prefix_for_check_address.bitlen = 128;
+    prefix_for_check_address.add.sin6   = client_ip;
+
+
+    patricia_node_t* found_patrica_node = patricia_search_best2(patricia_tree, &prefix_for_check_address, 1);
+
+    if (found_patrica_node == NULL) {
+        return false;
+    }
+
+    prefix_t* prefix = found_patrica_node->prefix;
+
+    if (prefix == NULL) {
+        return false;
+    }
+
+    subnet.subnet_address     = prefix->add.sin6;
+    subnet.cidr_prefix_length = prefix->bitlen;
+
+    return true;
+}
+
 // Return true if we have this IP in patricia tree
 bool ip_belongs_to_patricia_tree(patricia_tree_t* patricia_tree, uint32_t client_ip) {
     prefix_t prefix_for_check_address;

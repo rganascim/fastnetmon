@@ -254,6 +254,7 @@ class logging_configuration_t {
 typedef std::vector<subnet_cidr_mask_t> subnet_vector_t;
 
 typedef std::map<subnet_cidr_mask_t, std::string> subnet_to_host_group_map_t;
+typedef std::map<subnet_ipv6_cidr_mask_t, std::string> subnetv6_to_host_group_map_t;
 typedef std::map<std::string, subnet_vector_t> host_group_map_t;
 
 typedef void (*process_packet_pointer)(simple_packet_t&);

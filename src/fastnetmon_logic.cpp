@@ -112,6 +112,7 @@ extern total_speed_counters_t total_counters_ipv6;
 extern host_group_ban_settings_map_t host_group_ban_settings_map;
 extern bool exabgp_announce_whole_subnet;
 extern subnet_to_host_group_map_t subnet_to_host_groups;
+extern subnetv6_to_host_group_map_t subnetv6_to_host_groups;
 extern bool collect_attack_pcap_dumps;
 
 extern std::mutex flow_counter_mutex;
@@ -1385,16 +1386,16 @@ ban_settings_t get_ban_settings_for_this_subnet(const subnet_cidr_mask_t& subnet
 // Get ban settings for this subnet or return global ban settings
 ban_settings_t get_ban_settings_for_this_subnet_ipv6(const subnet_ipv6_cidr_mask_t& subnet, std::string& host_group_name) {
     
-    host_group_name = "global";
+    /*host_group_name = "global";
     // logger << log4cpp::Priority::ERROR << "Found the global ban_settings for the IPv6 " << print_ipv6_address(subnet.subnet_address);
-    return global_ban_settings;
-    /*
+    return global_ban_settings;*/
+    
     // Try to find host group for this subnet
-    subnet_to_host_group_map_t::iterator host_group_itr = subnet_to_host_groups.find(subnet);
+    subnetv6_to_host_group_map_t::iterator host_group_itr = subnetv6_to_host_groups.find(subnet);
 
-    if (host_group_itr == subnet_to_host_groups.end()) {
+    if (host_group_itr == subnetv6_to_host_groups.end()) {
         // We haven't host groups for all subnets, it's OK
-        // logger << log4cpp::Priority::INFO << "We haven't custom host groups for this network. We will use global ban settings";
+        // logger << log4cpp::Priority::INFO << "We haven't custom host groups for this network. We will use global ban settings " << print_ipv6_address(subnet.subnet_address);
         host_group_name = "global";
         return global_ban_settings;
     }
@@ -1411,7 +1412,6 @@ ban_settings_t get_ban_settings_for_this_subnet_ipv6(const subnet_ipv6_cidr_mask
 
     // We found ban settings for this host group and use they instead global
     return hostgroup_settings_itr->second;
-    */
 }
 
 // Get ban settings for this subnet or return global ban settings - for subnets and not hosts
@@ -1980,9 +1980,18 @@ void speed_calculation_callback_local_ipv6(const subnet_ipv6_cidr_mask_t& curren
 
     extern blackhole_ban_list_t<subnet_ipv6_cidr_mask_t> ban_list_ipv6;
 
-    // We support only global group
+    // carregar a subnet que este host pertence
+    subnet_ipv6_cidr_mask_t customer_subnetv6;
+    bool lookup_result =
+        lookup_ipv6_inpatricia_and_return_subnet_if_found(lookup_tree_ipv6, current_subnet.subnet_address, customer_subnetv6);
+
+    if (!lookup_result) {
+        // It's not critical, we can ignore it
+        logger << log4cpp::Priority::WARN << "Could not get customer's network for IP " << print_ipv6_address(current_subnet.subnet_address);;
+    }
+
     std::string host_group_name;
-    ban_settings_t current_ban_settings = get_ban_settings_for_this_subnet_ipv6(current_subnet, host_group_name);
+    ban_settings_t current_ban_settings = get_ban_settings_for_this_subnet_ipv6(customer_subnetv6, host_group_name);
     
 
     attack_detection_threshold_type_t attack_detection_source;

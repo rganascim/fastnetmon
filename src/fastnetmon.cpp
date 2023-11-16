@@ -427,6 +427,7 @@ host_group_map_t host_groups;
 
 // Here we store assignment from subnet to certain host group for fast lookup
 subnet_to_host_group_map_t subnet_to_host_groups;
+subnetv6_to_host_group_map_t subnetv6_to_host_groups;
 
 host_group_ban_settings_map_t host_group_ban_settings_map;
 
@@ -563,16 +564,36 @@ void parse_hostgroups(std::string name, std::string value) {
         return;
     }
 
+    // o negocio esta aqui, precisa cosneguir fazer ele dropar so a primeira : e o resto deixar
+
     std::vector<std::string> splitted_new_host_group;
     // We have new host groups in form:
     // hostgroup = new_host_group_name:11.22.33.44/32,....
-    split(splitted_new_host_group, value, boost::is_any_of(":"), boost::token_compress_on);
+    /*split(splitted_new_host_group, value, boost::is_any_of(":"), boost::token_compress_on);
 
     if (splitted_new_host_group.size() != 2) {
         logger << log4cpp::Priority::ERROR << "We can't parse new host group";
         return;
+    }*/
+
+    // procura por : na string
+    auto pos = value.find(":");
+    // se nao achar o : na string
+    if (pos == std::string::npos) {
+        logger << log4cpp::Priority::ERROR << "We can't parse new host group. It must be in the format hostgroup = new_host_group_name:11.22.33.44/32,....";
+        return;
     }
 
+    // vamos dividir a string em duas partes, antes do primeiro : e depois
+    std::string parte0_da_string = value.substr(0, pos);
+    std::string resto_da_string = value.substr(pos + 1);
+
+    // Adicionar o host_group_name à lista
+    splitted_new_host_group.push_back(parte0_da_string);
+    // Adicionar o restante à lista
+    splitted_new_host_group.push_back(resto_da_string);
+
+    // codigo padrao que ja existia
     boost::algorithm::trim(splitted_new_host_group[0]);
     boost::algorithm::trim(splitted_new_host_group[1]);
 
@@ -587,26 +608,54 @@ void parse_hostgroups(std::string name, std::string value) {
     std::vector<std::string> hostgroup_subnets = split_strings_to_vector_by_comma(splitted_new_host_group[1]);
 
     for (std::vector<std::string>::iterator itr = hostgroup_subnets.begin(); itr != hostgroup_subnets.end(); ++itr) {
-        subnet_cidr_mask_t subnet;
+        logger << log4cpp::Priority::INFO << "Subnet found: " << *itr;
 
-        bool subnet_parse_result = convert_subnet_from_string_to_binary_with_cidr_format_safe(*itr, subnet);
+        if(is_cidr_subnet(*itr)) {
+            subnet_cidr_mask_t subnet;
 
-        if (!subnet_parse_result) {
-            logger << log4cpp::Priority::ERROR << "Cannot parse subnet " << *itr;
-            continue;
-        }
+            bool subnet_parse_result = convert_subnet_from_string_to_binary_with_cidr_format_safe(*itr, subnet);
 
-        host_groups[host_group_name].push_back(subnet);
+            if (!subnet_parse_result) {
+                logger << log4cpp::Priority::ERROR << "Cannot parse subnet " << *itr;
+                continue;
+            }
 
-        logger << log4cpp::Priority::WARN << "We add subnet " << convert_subnet_to_string(subnet) << " to host group " << host_group_name;
+            host_groups[host_group_name].push_back(subnet);
 
-        // And add to subnet to host group lookup hash
-        if (subnet_to_host_groups.count(subnet) > 0) {
-            // Huston, we have problem! Subnet to host group mapping should map single subnet to single group!
-            logger << log4cpp::Priority::WARN << "Seems you have specified single subnet " << *itr
-                   << " to multiple host groups, please fix it, it's prohibited";
+            logger << log4cpp::Priority::WARN << "We add subnet " << convert_subnet_to_string(subnet) << " to host group " << host_group_name;
+
+            // And add to subnet to host group lookup hash
+            if (subnet_to_host_groups.count(subnet) > 0) {
+                // Huston, we have problem! Subnet to host group mapping should map single subnet to single group!
+                logger << log4cpp::Priority::WARN << "Seems you have specified single subnet " << *itr
+                    << " to multiple host groups, please fix it, it's prohibited";
+            } else {
+                subnet_to_host_groups[subnet] = host_group_name;
+            }
         } else {
-            subnet_to_host_groups[subnet] = host_group_name;
+            subnet_ipv6_cidr_mask_t subnetv6;
+
+            bool subnet_parse_result = read_ipv6_subnet_from_string(subnetv6, *itr);
+
+            if (!subnet_parse_result) {
+                logger << log4cpp::Priority::ERROR << "Cannot parse subnet " << *itr;
+                continue;
+            }
+
+            // // ok, insere uma subnet vazia. Mas nao eh usado pra nada saporra.
+            // subnet_cidr_mask_t subnet;
+            // host_groups[host_group_name].push_back(subnet);
+
+            logger << log4cpp::Priority::WARN << "We add subnet " << convert_any_ip_to_string(subnetv6) << " to v6 host group " << host_group_name;
+
+            // And add to subnet to host group lookup hash
+            if (subnetv6_to_host_groups.count(subnetv6) > 0) {
+                // Huston, we have problem! Subnet to host group mapping should map single subnet to single group!
+                logger << log4cpp::Priority::WARN << "Seems you have specified single subnet " << *itr
+                    << " to multiple host groups, please fix it, it's prohibited";
+            } else {
+                subnetv6_to_host_groups[subnetv6] = host_group_name;
+            }
         }
     }
 

@@ -22,6 +22,9 @@ bool we_should_ban_this_entity(const subnet_counter_t& average_speed_element,
 bool exceed_mbps_speed(uint64_t in_counter, uint64_t out_counter, unsigned int threshold_mbps);
 bool exceed_flow_speed(uint64_t in_counter, uint64_t out_counter, unsigned int threshold);
 bool exceed_pps_speed(uint64_t in_counter, uint64_t out_counter, unsigned int threshold);
+bool exceed_mbps_speed_one_direction(uint64_t in_counter, unsigned int threshold_mbps);
+bool exceed_flow_speed_one_direction(uint64_t in_counter, unsigned int threshold);
+bool exceed_pps_speed_one_direction(uint64_t in_counter, unsigned int threshold);
 ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::string host_group_name);
 logging_configuration_t read_logging_settings(configuration_map_t configuration_map);
 void print_attack_details_to_file(const std::string& details, const std::string& client_ip_as_string, const attack_details_t& current_attack);

@@ -164,6 +164,30 @@ std::string get_printable_protocol_name(unsigned int protocol) {
     case IPPROTO_ICMP:
         proto_name = "icmp";
         break;
+    case DECODER_PORT0:
+        proto_name = "port0";
+        break;
+    case DECODER_DNS:
+        proto_name = "dns";
+        break;
+    case DECODER_NTP:
+        proto_name = "ntp";
+        break;
+    case DECODER_SSDP:
+        proto_name = "ssdp";
+        break;
+    case DECODER_LDAP:
+        proto_name = "ldap";
+        break;
+    case DECODER_CHARGEN:
+        proto_name = "chargen";
+        break;
+    case DECODER_TCPHIGHPORTS:
+        proto_name = "tcphighports";
+        break;
+    case DECODER_UDPHIGHPORTS:
+        proto_name = "udphighports";
+        break;
     default:
         proto_name = "unknown";
         break;

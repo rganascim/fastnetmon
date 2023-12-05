@@ -28,6 +28,15 @@
 #define TCP_ACK_FLAG_SHIFT 5
 #define TCP_URG_FLAG_SHIFT 6
 
+#define DECODER_PORT0 256
+#define DECODER_DNS 257
+#define DECODER_NTP 258
+#define DECODER_SSDP 259
+#define DECODER_LDAP 269
+#define DECODER_CHARGEN 261
+#define DECODER_TCPHIGHPORTS 262
+#define DECODER_UDPHIGHPORTS 263
+
 typedef std::map<std::string, uint64_t> graphite_data_t;
 typedef std::vector<std::string> interfaces_list_t;
 typedef std::vector<std::string> ip_addresses_list_t;

@@ -659,6 +659,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
         ban_settings.enable_ban_for_port0_pps = configuration_map[prefix + "ban_for_port0_pps"] == "on";
     }
 
+    if (configuration_map.count(prefix + "ban_for_port0_bandwidth") != 0) {
+        ban_settings.enable_ban_for_port0_bandwidth = configuration_map[prefix + "ban_for_port0_bandwidth"] == "on";
+    }
+
     if (configuration_map.count(prefix + "threshold_port0_pps") != 0) {
             ban_settings.ban_threshold_port0_pps =
                 convert_string_to_integer(configuration_map[prefix + "threshold_port0_pps"]);
@@ -676,6 +680,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
     // config for decoder dns
     if (configuration_map.count(prefix + "ban_for_dns_pps") != 0) {
         ban_settings.enable_ban_for_dns_pps = configuration_map[prefix + "ban_for_dns_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_dns_bandwidth") != 0) {
+        ban_settings.enable_ban_for_dns_bandwidth = configuration_map[prefix + "ban_for_dns_bandwidth"] == "on";
     }
 
     if (configuration_map.count(prefix + "threshold_dns_pps") != 0) {
@@ -697,6 +705,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
         ban_settings.enable_ban_for_ntp_pps = configuration_map[prefix + "ban_for_ntp_pps"] == "on";
     }
 
+    if (configuration_map.count(prefix + "ban_for_ntp_bandwidth") != 0) {
+        ban_settings.enable_ban_for_ntp_bandwidth = configuration_map[prefix + "ban_for_ntp_bandwidth"] == "on";
+    }
+
     if (configuration_map.count(prefix + "threshold_ntp_pps") != 0) {
             ban_settings.ban_threshold_ntp_pps =
                 convert_string_to_integer(configuration_map[prefix + "threshold_ntp_pps"]);
@@ -714,6 +726,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
     // config for decoder ssdp
     if (configuration_map.count(prefix + "ban_for_ssdp_pps") != 0) {
         ban_settings.enable_ban_for_ssdp_pps = configuration_map[prefix + "ban_for_ssdp_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_ssdp_bandwidth") != 0) {
+        ban_settings.enable_ban_for_ssdp_bandwidth = configuration_map[prefix + "ban_for_ssdp_bandwidth"] == "on";
     }
 
     if (configuration_map.count(prefix + "threshold_ssdp_pps") != 0) {
@@ -735,6 +751,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
         ban_settings.enable_ban_for_fragments_pps = configuration_map[prefix + "ban_for_fragments_pps"] == "on";
     }
 
+    if (configuration_map.count(prefix + "ban_for_fragments_bandwidth") != 0) {
+        ban_settings.enable_ban_for_fragments_bandwidth = configuration_map[prefix + "ban_for_fragments_bandwidth"] == "on";
+    }
+
     if (configuration_map.count(prefix + "threshold_fragments_pps") != 0) {
             ban_settings.ban_threshold_fragments_pps =
                 convert_string_to_integer(configuration_map[prefix + "threshold_fragments_pps"]);
@@ -752,6 +772,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
     // config for decoder tcpsyn
     if (configuration_map.count(prefix + "ban_for_tcpsyn_pps") != 0) {
         ban_settings.enable_ban_for_tcpsyn_pps = configuration_map[prefix + "ban_for_tcpsyn_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_tcpsyn_bandwidth") != 0) {
+        ban_settings.enable_ban_for_tcpsyn_bandwidth = configuration_map[prefix + "ban_for_tcpsyn_bandwidth"] == "on";
     }
 
     if (configuration_map.count(prefix + "threshold_tcpsyn_pps") != 0) {
@@ -773,6 +797,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
         ban_settings.enable_ban_for_ldap_pps = configuration_map[prefix + "ban_for_ldap_pps"] == "on";
     }
 
+    if (configuration_map.count(prefix + "ban_for_ldap_bandwidth") != 0) {
+        ban_settings.enable_ban_for_ldap_bandwidth = configuration_map[prefix + "ban_for_ldap_bandwidth"] == "on";
+    }
+
     if (configuration_map.count(prefix + "threshold_ldap_pps") != 0) {
             ban_settings.ban_threshold_ldap_pps =
                 convert_string_to_integer(configuration_map[prefix + "threshold_ldap_pps"]);
@@ -790,6 +818,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
     // config for decoder chargen
     if (configuration_map.count(prefix + "ban_for_chargen_pps") != 0) {
         ban_settings.enable_ban_for_chargen_pps = configuration_map[prefix + "ban_for_chargen_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_chargen_bandwidth") != 0) {
+        ban_settings.enable_ban_for_chargen_bandwidth = configuration_map[prefix + "ban_for_chargen_bandwidth"] == "on";
     }
 
     if (configuration_map.count(prefix + "threshold_chargen_pps") != 0) {
@@ -812,6 +844,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
         ban_settings.enable_ban_for_tcphighports_pps = configuration_map[prefix + "ban_for_tcphighports_pps"] == "on";
     }
 
+    if (configuration_map.count(prefix + "ban_for_tcphighports_bandwidth") != 0) {
+        ban_settings.enable_ban_for_tcphighports_bandwidth = configuration_map[prefix + "ban_for_tcphighports_bandwidth"] == "on";
+    }
+
     if (configuration_map.count(prefix + "threshold_tcphighports_pps") != 0) {
             ban_settings.ban_threshold_tcphighports_pps =
                 convert_string_to_integer(configuration_map[prefix + "threshold_tcphighports_pps"]);
@@ -829,6 +865,10 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
     // config for decoder udphighports
     if (configuration_map.count(prefix + "ban_for_udphighports_pps") != 0) {
         ban_settings.enable_ban_for_udphighports_pps = configuration_map[prefix + "ban_for_udphighports_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_udphighports_bandwidth") != 0) {
+        ban_settings.enable_ban_for_udphighports_bandwidth = configuration_map[prefix + "ban_for_udphighports_bandwidth"] == "on";
     }
 
     if (configuration_map.count(prefix + "threshold_udphighports_pps") != 0) {

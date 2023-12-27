@@ -1108,6 +1108,15 @@ attack_type_t detect_attack_type(const attack_details_t& current_attack) {
     } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udphighports_bytes_per_second
         || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udphighports_packets_per_second ) {
             return ATTACK_udphighports;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcp_packets_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcp_bytes_per_second ) {
+        return ATTACK_TCP_FLOOD;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udp_packets_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udp_bytes_per_second ) {
+        return ATTACK_UDP_FLOOD;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::icmp_packets_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::icmp_bytes_per_second ) {
+        return ATTACK_ICMP_FLOOD;
     }
 
     if (current_attack.attack_direction == INCOMING) {
@@ -1170,6 +1179,8 @@ std::string get_printable_attack_name(attack_type_t attack) {
         return "tcphighports";
     } else if (attack == ATTACK_udphighports) {
         return "udphighports";
+    } else if (attack == ATTACK_TCP_FLOOD) {
+        return "tcp_flood";
     } else {
         return "unknown";
     }

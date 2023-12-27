@@ -980,68 +980,129 @@ bool we_should_ban_this_entity(const subnet_counter_t& average_speed_element,
 
     // Per protocol pps thresholds
     if (current_ban_settings.enable_ban_for_tcp_pps &&
-        exceed_pps_speed(average_speed_element.tcp.in_packets, average_speed_element.tcp.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.tcp.in_packets,
                          current_ban_settings.ban_threshold_tcp_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::tcp_packets_per_second;
-
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_tcp_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.tcp.out_packets,
+                         current_ban_settings.ban_threshold_tcp_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_udp_pps &&
-        exceed_pps_speed(average_speed_element.udp.in_packets, average_speed_element.udp.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.udp.in_packets,
                          current_ban_settings.ban_threshold_udp_pps)) {
-
         attack_detection_source = attack_detection_threshold_type_t::udp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_udp_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.udp.out_packets,
+                         current_ban_settings.ban_threshold_udp_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::udp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_icmp_pps &&
-        exceed_pps_speed(average_speed_element.icmp.in_packets, average_speed_element.icmp.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.icmp.in_packets,
                          current_ban_settings.ban_threshold_icmp_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::icmp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_icmp_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.icmp.out_packets,
+                         current_ban_settings.ban_threshold_icmp_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::icmp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     // Per protocol bandwidth thresholds
     if (current_ban_settings.enable_ban_for_tcp_bandwidth &&
-        exceed_mbps_speed(average_speed_element.tcp.in_bytes, average_speed_element.tcp.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.tcp.in_bytes,
                           current_ban_settings.ban_threshold_tcp_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::tcp_bytes_per_second;
-        ;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_tcp_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.tcp.out_bytes,
+                          current_ban_settings.ban_threshold_tcp_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_udp_bandwidth &&
-        exceed_mbps_speed(average_speed_element.udp.in_bytes, average_speed_element.udp.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.udp.in_bytes,
                           current_ban_settings.ban_threshold_udp_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::udp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_udp_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.udp.out_bytes,
+                          current_ban_settings.ban_threshold_udp_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::udp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_icmp_bandwidth &&
-        exceed_mbps_speed(average_speed_element.icmp.in_bytes, average_speed_element.icmp.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.icmp.in_bytes,
                           current_ban_settings.ban_threshold_icmp_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::icmp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_icmp_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.icmp.out_bytes,
+                          current_ban_settings.ban_threshold_icmp_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::icmp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     // rafael decoders
     // settings for port0
     if (current_ban_settings.enable_ban_for_port0_pps &&
-        exceed_pps_speed(average_speed_element.decoder_port0.in_packets, average_speed_element.decoder_port0.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.decoder_port0.in_packets,
                          current_ban_settings.ban_threshold_port0_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::port0_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_port0_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_port0.out_packets,
+                         current_ban_settings.ban_threshold_port0_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::port0_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_port0_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_port0.in_bytes, average_speed_element.decoder_port0.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_port0.in_bytes,
                           current_ban_settings.ban_threshold_port0_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::port0_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
-    // settings for dns
+    if (current_ban_settings.enable_ban_for_port0_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_port0.out_bytes,
+                          current_ban_settings.ban_threshold_port0_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::port0_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
 
+    // settings for dns
     if (current_ban_settings.enable_ban_for_dns_pps &&
         exceed_pps_speed_one_direction(average_speed_element.decoder_dns.in_packets,
                          current_ban_settings.ban_threshold_dns_pps)) {
@@ -1074,114 +1135,249 @@ bool we_should_ban_this_entity(const subnet_counter_t& average_speed_element,
 
     // settings for ntp
     if (current_ban_settings.enable_ban_for_ntp_pps &&
-        exceed_pps_speed(average_speed_element.decoder_ntp.in_packets, average_speed_element.decoder_ntp.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.decoder_ntp.in_packets,
                          current_ban_settings.ban_threshold_ntp_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::ntp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_ntp_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_ntp.out_packets,
+                         current_ban_settings.ban_threshold_ntp_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ntp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_ntp_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_ntp.in_bytes, average_speed_element.decoder_ntp.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_ntp.in_bytes,
                           current_ban_settings.ban_threshold_ntp_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::ntp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
+    if (current_ban_settings.enable_ban_for_ntp_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_ntp.out_bytes,
+                          current_ban_settings.ban_threshold_ntp_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ntp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for ssdp
     if (current_ban_settings.enable_ban_for_ssdp_pps &&
-        exceed_pps_speed(average_speed_element.decoder_ssdp.in_packets, average_speed_element.decoder_ssdp.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.decoder_ssdp.in_packets,
                          current_ban_settings.ban_threshold_ssdp_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::ssdp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_ssdp_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_ssdp.out_packets,
+                         current_ban_settings.ban_threshold_ssdp_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ssdp_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_ssdp_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_ssdp.in_bytes, average_speed_element.decoder_ssdp.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_ssdp.in_bytes,
                           current_ban_settings.ban_threshold_ssdp_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::ssdp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
+    if (current_ban_settings.enable_ban_for_ssdp_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_ssdp.out_bytes,
+                          current_ban_settings.ban_threshold_ssdp_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ssdp_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for fragments
     if (current_ban_settings.enable_ban_for_fragments_pps &&
-        exceed_pps_speed(average_speed_element.fragmented.in_packets, average_speed_element.fragmented.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.fragmented.in_packets,
                          current_ban_settings.ban_threshold_fragments_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::ip_fragments_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_fragments_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.fragmented.out_packets,
+                         current_ban_settings.ban_threshold_fragments_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ip_fragments_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_fragments_bandwidth &&
-        exceed_mbps_speed(average_speed_element.fragmented.in_bytes, average_speed_element.fragmented.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.fragmented.in_bytes,
                           current_ban_settings.ban_threshold_fragments_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::ip_fragments_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
+    if (current_ban_settings.enable_ban_for_fragments_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.fragmented.out_bytes,
+                          current_ban_settings.ban_threshold_fragments_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ip_fragments_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for tcpsyn
     if (current_ban_settings.enable_ban_for_tcpsyn_pps &&
-        exceed_pps_speed(average_speed_element.tcp_syn.in_packets, average_speed_element.tcp_syn.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.tcp_syn.in_packets,
                          current_ban_settings.ban_threshold_tcpsyn_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::tcp_syn_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_tcpsyn_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.tcp_syn.out_packets,
+                         current_ban_settings.ban_threshold_tcpsyn_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcp_syn_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_tcpsyn_bandwidth &&
-        exceed_mbps_speed(average_speed_element.tcp_syn.in_bytes, average_speed_element.tcp_syn.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.tcp_syn.in_bytes,
                           current_ban_settings.ban_threshold_tcpsyn_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::tcp_syn_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
+    if (current_ban_settings.enable_ban_for_tcpsyn_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.tcp_syn.out_bytes,
+                          current_ban_settings.ban_threshold_tcpsyn_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcp_syn_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for ldap
     if (current_ban_settings.enable_ban_for_ldap_pps &&
-        exceed_pps_speed(average_speed_element.decoder_ldap.in_packets, average_speed_element.decoder_ldap.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.decoder_ldap.in_packets,
                          current_ban_settings.ban_threshold_ldap_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::ldap_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_ldap_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_ldap.out_packets,
+                         current_ban_settings.ban_threshold_ldap_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ldap_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_ldap_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_ldap.in_bytes, average_speed_element.decoder_ldap.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_ldap.in_bytes,
                           current_ban_settings.ban_threshold_ldap_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::ldap_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
+    if (current_ban_settings.enable_ban_for_ldap_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_ldap.out_bytes,
+                          current_ban_settings.ban_threshold_ldap_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::ldap_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for chargen
     if (current_ban_settings.enable_ban_for_chargen_pps &&
-        exceed_pps_speed(average_speed_element.decoder_chargen.in_packets, average_speed_element.decoder_chargen.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.decoder_chargen.in_packets,
                          current_ban_settings.ban_threshold_chargen_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::chargen_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_chargen_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_chargen.out_packets,
+                         current_ban_settings.ban_threshold_chargen_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::chargen_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_chargen_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_chargen.in_bytes, average_speed_element.decoder_chargen.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_chargen.in_bytes,
                           current_ban_settings.ban_threshold_chargen_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::chargen_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
+    if (current_ban_settings.enable_ban_for_chargen_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_chargen.out_bytes,
+                          current_ban_settings.ban_threshold_chargen_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::chargen_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for tcphighports
     if (current_ban_settings.enable_ban_for_tcphighports_pps &&
-        exceed_pps_speed(average_speed_element.decoder_tcphighports.in_packets, average_speed_element.decoder_tcphighports.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.decoder_tcphighports.in_packets,
                          current_ban_settings.ban_threshold_tcphighports_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::tcphighports_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_tcphighports_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_tcphighports.out_packets,
+                         current_ban_settings.ban_threshold_tcphighports_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcphighports_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_tcphighports_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_tcphighports.in_bytes, average_speed_element.decoder_tcphighports.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_tcphighports.in_bytes,
                           current_ban_settings.ban_threshold_tcphighports_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::tcphighports_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
         return true;
     }
+    if (current_ban_settings.enable_ban_for_tcphighports_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_tcphighports.out_bytes,
+                          current_ban_settings.ban_threshold_tcphighports_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::tcphighports_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for udphighports
     if (current_ban_settings.enable_ban_for_udphighports_pps &&
-        exceed_pps_speed(average_speed_element.decoder_udphighports.in_packets, average_speed_element.decoder_udphighports.out_packets,
+        exceed_pps_speed_one_direction(average_speed_element.decoder_udphighports.in_packets,
                          current_ban_settings.ban_threshold_udphighports_pps)) {
         attack_detection_source = attack_detection_threshold_type_t::udphighports_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_udphighports_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_udphighports.out_packets,
+                         current_ban_settings.ban_threshold_udphighports_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::udphighports_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
     if (current_ban_settings.enable_ban_for_udphighports_bandwidth &&
-        exceed_mbps_speed(average_speed_element.decoder_udphighports.in_bytes, average_speed_element.decoder_udphighports.out_bytes,
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_udphighports.in_bytes,
                           current_ban_settings.ban_threshold_udphighports_mbps)) {
         attack_detection_source = attack_detection_threshold_type_t::udphighports_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_udphighports_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_udphighports.out_bytes,
+                          current_ban_settings.ban_threshold_udphighports_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::udphighports_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
         return true;
     }
 
@@ -2387,10 +2583,10 @@ bool fill_attack_information(
     /*
     std::string ddos_detection_threshold_as_string = get_human_readable_threshold_type(current_attack.attack_detection_threshold);
     std::string ddos_detection_direction = get_human_readable_attack_detection_direction(current_attack.attack_detection_direction);
-    logger << log4cpp::Priority::INFO << "ZIKA: "
+    logger << log4cpp::Priority::INFO << "MERDA(fill_attack_information): "
            << " using " << ddos_detection_threshold_as_string << " threshold "
            << "in direction " << ddos_detection_direction;
-    */
+   */
 
     direction_t data_direction;
 
@@ -2570,6 +2766,49 @@ bool fill_attack_information(
         } else {
             data_direction = OUTGOING;
             pps = current_attack.traffic_counters.decoder_udphighports.out_bytes;
+        }
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcp_packets_per_second) {
+
+        current_attack.attack_protocol = IPPROTO_TCP;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.tcp.in_packets;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.tcp.out_packets;
+        }
+
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcp_bytes_per_second) {
+
+        current_attack.attack_protocol = IPPROTO_TCP;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.tcp.in_bytes;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.tcp.out_bytes;
+        }
+
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udp_packets_per_second) {
+
+        current_attack.attack_protocol = IPPROTO_UDP;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.udp.in_packets;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.udp.out_packets;
+        }
+
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::udp_bytes_per_second) {
+
+        current_attack.attack_protocol = IPPROTO_UDP;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.udp.in_bytes;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.udp.out_bytes;
         }
 
     }
@@ -2852,6 +3091,13 @@ void speed_calculation_callback_local_ipv4(const uint32_t& client_ip, const subn
         return;
     }
 
+    // Set threshold direction
+    attack_details.attack_detection_direction = attack_detection_direction;
+
+    // Set threshold type
+    attack_details.attack_detection_threshold = attack_detection_source;
+
+  
     // We should execute check over whitelist
     // In common case, this check is pretty complicated and we should execute it only for hosts which exceed
     // threshold
@@ -2868,6 +3114,7 @@ void speed_calculation_callback_local_ipv4(const uint32_t& client_ip, const subn
 
     // They could be filled or not yet filled
     // TODO: with this check we should REMOVE items from bucket storage when attack handled
+    
     bool we_already_have_buckets_for_this_ip = packet_buckets_ipv4_storage.we_have_bucket_for_this_ip(client_ip);
 
     if (we_already_have_buckets_for_this_ip) {
@@ -3912,7 +4159,7 @@ void process_filled_buckets_ipv4() {
 
        // Here I extract attack details saved at time when we crossed threshold
         attack_details_t current_attack = bucket.attack_details;
-        
+
         // If we have no flow spec just do blackhole
         execute_ipv4_ban(client_ip_as_integer, current_attack, flow_attack_details,
                            bucket.parsed_packets_circular_buffer, bucket.raw_packets_circular_buffer);

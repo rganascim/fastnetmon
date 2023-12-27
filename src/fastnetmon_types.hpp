@@ -294,7 +294,9 @@ enum attack_type_t {
     // decoder tcphighports
     ATTACK_tcphighports           = 12,
     // decoder udphighports
-    ATTACK_udphighports           = 13
+    ATTACK_udphighports           = 13,
+    // para diferenciar de syn-flood
+    ATTACK_TCP_FLOOD              = 14
 };
 
 // Amplification types

@@ -1,4 +1,22 @@
 {
     "cmake.configureOnOpen": false,
-    "cmake.sourceDirectory": "/Volumes/exports/fastnetmon/src"
+    "cmake.sourceDirectory": "/Volumes/exports/fastnetmon/src",
+    "terminal.integrated.env.linux": {
+        "LD_LIBRARY_PATH": "/opt/fastnetmon-community/libraries/gcc_12_1_0/lib64",
+        "CC": "/opt/fastnetmon-community/libraries/gcc_12_1_0/bin/gcc",
+        "CXX": "/opt/fastnetmon-community/libraries/gcc_12_1_0/bin/g++"
+    },
+    "C_Cpp.default.compilerPath": "/opt/fastnetmon-community/libraries/gcc_12_1_0/bin/gcc",
+    "files.associations": {
+        "iostream": "cpp",
+        "chrono": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp",
+        "system_error": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
+    }
 }

@@ -18,3 +18,4 @@ src/traffic_output_formats/protobuf/traffic_data.pb.cc
 src/traffic_output_formats/protobuf/traffic_data.pb.h
 .vscode/
 .devcontainer/
+.vscode/settings.json

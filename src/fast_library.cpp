@@ -195,7 +195,7 @@ std::string get_printable_protocol_name(unsigned int protocol) {
         proto_name = "https";
         break;
     case DECODER_QUIC:
-        proto_name = "quick";
+        proto_name = "quic";
         break;
     default:
         proto_name = "unknown";

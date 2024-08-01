@@ -106,7 +106,12 @@ void increment_incoming_counters(subnet_counter_t& current_element,
             current_element.decoder_chargen.in_bytes += sampled_number_of_bytes;
         }
 
-
+        // decoder http
+        if(current_packet.source_port == 80 || current_packet.destination_port == 80)
+        {
+            current_element.decoder_http.in_packets += sampled_number_of_packets;
+            current_element.decoder_http.in_bytes += sampled_number_of_bytes;
+        }
     }
 
     // udp only decoders
@@ -117,6 +122,12 @@ void increment_incoming_counters(subnet_counter_t& current_element,
             current_element.decoder_udphighports.in_packets += sampled_number_of_packets;
             current_element.decoder_udphighports.in_bytes += sampled_number_of_bytes;
         }
+        // decoder quic
+        if(current_packet.source_port == 443 || current_packet.destination_port == 443)
+        {
+            current_element.decoder_quic.in_packets += sampled_number_of_packets;
+            current_element.decoder_quic.in_bytes += sampled_number_of_bytes;
+        }
     }
 
     // tcp only decoders
@@ -126,6 +137,12 @@ void increment_incoming_counters(subnet_counter_t& current_element,
         {
             current_element.decoder_tcphighports.in_packets += sampled_number_of_packets;
             current_element.decoder_tcphighports.in_bytes += sampled_number_of_bytes;
+        }
+        // decoder https
+        if(current_packet.source_port == 443 || current_packet.destination_port == 443)
+        {
+            current_element.decoder_https.in_packets += sampled_number_of_packets;
+            current_element.decoder_https.in_bytes += sampled_number_of_bytes;
         }
     }
 
@@ -227,8 +244,12 @@ void increment_outgoing_counters(subnet_counter_t& current_element,
             current_element.decoder_chargen.out_packets += sampled_number_of_packets;
             current_element.decoder_chargen.out_bytes += sampled_number_of_bytes;
         }
-
-
+        // decoder http
+        if(current_packet.source_port == 80 || current_packet.destination_port == 80)
+        {
+            current_element.decoder_http.out_packets += sampled_number_of_packets;
+            current_element.decoder_http.out_bytes += sampled_number_of_bytes;
+        }
     }
 
     // udp only decoders
@@ -239,6 +260,12 @@ void increment_outgoing_counters(subnet_counter_t& current_element,
             current_element.decoder_udphighports.out_packets += sampled_number_of_packets;
             current_element.decoder_udphighports.out_bytes += sampled_number_of_bytes;
         }
+        // decoder quic
+        if(current_packet.source_port == 443 || current_packet.destination_port == 443)
+        {
+            current_element.decoder_quic.out_packets += sampled_number_of_packets;
+            current_element.decoder_quic.out_bytes += sampled_number_of_bytes;
+        }
     }
 
     // tcp only decoders
@@ -248,6 +275,12 @@ void increment_outgoing_counters(subnet_counter_t& current_element,
         {
             current_element.decoder_tcphighports.out_packets += sampled_number_of_packets;
             current_element.decoder_tcphighports.out_bytes += sampled_number_of_bytes;
+        }
+        // decoder https
+        if(current_packet.source_port == 443 || current_packet.destination_port == 443)
+        {
+            current_element.decoder_https.out_packets += sampled_number_of_packets;
+            current_element.decoder_https.out_bytes += sampled_number_of_bytes;
         }
     }
 
@@ -284,6 +317,12 @@ void build_speed_counters_from_packet_counters(subnet_counter_t& new_speed_eleme
     new_speed_element.decoder_tcphighports.calculate_speed(data_counters.decoder_tcphighports, speed_calc_period);
     // decoder udphighports
     new_speed_element.decoder_udphighports.calculate_speed(data_counters.decoder_udphighports, speed_calc_period);
+    // decoder http
+    new_speed_element.decoder_http.calculate_speed(data_counters.decoder_http, speed_calc_period);
+    // decoder https
+    new_speed_element.decoder_https.calculate_speed(data_counters.decoder_https, speed_calc_period);
+    // decoder quic
+    new_speed_element.decoder_quic.calculate_speed(data_counters.decoder_quic, speed_calc_period);
 
     new_speed_element.tcp.calculate_speed(data_counters.tcp, speed_calc_period);
     new_speed_element.udp.calculate_speed(data_counters.udp, speed_calc_period);
@@ -318,6 +357,12 @@ void build_average_speed_counters_from_speed_counters(subnet_counter_t& current_
     current_average_speed_element.decoder_tcphighports.calulate_exponential_moving_average_speed(new_speed_element.decoder_tcphighports, exp_value);
     // decoder udphighports
     current_average_speed_element.decoder_udphighports.calulate_exponential_moving_average_speed(new_speed_element.decoder_udphighports, exp_value);
+    // decoder http
+    current_average_speed_element.decoder_http.calulate_exponential_moving_average_speed(new_speed_element.decoder_http, exp_value);
+    // decoder https
+    current_average_speed_element.decoder_https.calulate_exponential_moving_average_speed(new_speed_element.decoder_https, exp_value);
+    // decoder quic
+    current_average_speed_element.decoder_quic.calulate_exponential_moving_average_speed(new_speed_element.decoder_quic, exp_value);
 
     current_average_speed_element.tcp.calulate_exponential_moving_average_speed(new_speed_element.tcp, exp_value);
     current_average_speed_element.udp.calulate_exponential_moving_average_speed(new_speed_element.udp, exp_value);

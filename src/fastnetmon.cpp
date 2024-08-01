@@ -21,14 +21,14 @@
 
 #include "fast_endianless.hpp"
 
+#include "abstract_subnet_counters.hpp"
+
 #ifdef FASTNETMON_API
 
 #ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif // __GNUC__
-
-#include "abstract_subnet_counters.hpp"
 
 #include "fastnetmon.grpc.pb.h"
 #include <grpc++/grpc++.h>
@@ -323,6 +323,21 @@ void init_global_ban_settings() {
     global_ban_settings.enable_ban_for_udphighports_bandwidth=false;
     global_ban_settings.ban_threshold_udphighports_mbps=1000;
     global_ban_settings.ban_threshold_udphighports_pps=20000;
+    // decoder http
+    global_ban_settings.enable_ban_for_http_pps=false;
+    global_ban_settings.enable_ban_for_http_bandwidth=false;
+    global_ban_settings.ban_threshold_http_mbps=1000;
+    global_ban_settings.ban_threshold_http_pps=20000;
+    // decoder https
+    global_ban_settings.enable_ban_for_https_pps=false;
+    global_ban_settings.enable_ban_for_https_bandwidth=false;
+    global_ban_settings.ban_threshold_https_mbps=1000;
+    global_ban_settings.ban_threshold_https_pps=20000;
+    // decoder quic
+    global_ban_settings.enable_ban_for_quic_pps=false;
+    global_ban_settings.enable_ban_for_quic_bandwidth=false;
+    global_ban_settings.ban_threshold_quic_mbps=1000;
+    global_ban_settings.ban_threshold_quic_pps=20000;
 }
 
 bool enable_connection_tracking = true;

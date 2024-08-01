@@ -1,0 +1,7 @@
+# dentro de devcontainer
+
+# cmake
+LD_LIBRARY_PATH=/opt/fastnetmon-community/libraries/gcc_12_1_0/lib64 CC=/opt/fastnetmon-community/libraries/gcc_12_1_0/bin/gcc CXX=/opt/fastnetmon-community/libraries/gcc_12_1_0/bin/g++ /opt/fastnetmon-community/libraries/cmake_3_23_4/bin/cmake /workspace/src/ -DDO_NOT_USE_SYSTEM_LIBRARIES_FOR_BUILD=ON -DKAFKA_SUPPORT=OFF -DBUILD_TESTS=OFF
+
+# build
+LD_LIBRARY_PATH=/opt/fastnetmon-community/libraries/gcc_12_1_0/lib64 CC=/opt/fastnetmon-community/libraries/gcc_12_1_0/bin/gcc CXX=/opt/fastnetmon-community/libraries/gcc_12_1_0/bin/g++ /opt/fastnetmon-community/libraries/cmake_3_23_4/bin/cmake /workspace/src/ -DDO_NOT_USE_SYSTEM_LIBRARIES_FOR_BUILD=ON -DKAFKA_SUPPORT=OFF -DBUILD_TESTS=OFF

@@ -168,6 +168,12 @@ void fill_per_protocol_countres_for_influxdb(const subnet_counter_t& current_spe
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_tcphighports, "decoder_tcphighports");
     // decoder udphighports
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_udphighports, "decoder_udphighports");
+    // decoder http
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_http, "decoder_http");
+    // decoder https
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_https, "decoder_https");
+    // decoder quic
+    add_counter_to_influxdb(plain_total_counters_map, current_speed_element.decoder_quic, "decoder_quic");
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.udp, "udp");
     add_counter_to_influxdb(plain_total_counters_map, current_speed_element.icmp, "icmp");
 }

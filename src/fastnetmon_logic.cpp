@@ -495,6 +495,57 @@ std::string print_ban_thresholds(ban_settings_t current_ban_settings) {
     }
 
     output_buffer << "\n";
+    output_buffer << "http Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_http_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_http_mbps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+
+     output_buffer << "http Packets per second: ";
+    if (current_ban_settings.enable_ban_for_http_pps) {
+        output_buffer << current_ban_settings.ban_threshold_http_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "https Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_https_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_https_mbps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+
+     output_buffer << "https Packets per second: ";
+    if (current_ban_settings.enable_ban_for_https_pps) {
+        output_buffer << current_ban_settings.ban_threshold_https_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+    output_buffer << "quic Mbps per second: ";
+    if (current_ban_settings.enable_ban_for_quic_bandwidth) {
+        output_buffer << current_ban_settings.ban_threshold_quic_mbps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
+
+     output_buffer << "quic Packets per second: ";
+    if (current_ban_settings.enable_ban_for_quic_pps) {
+        output_buffer << current_ban_settings.ban_threshold_quic_pps;
+    } else {
+        output_buffer << "disabled";
+    }
+
+    output_buffer << "\n";
 
     return output_buffer.str();
 }
@@ -884,6 +935,78 @@ ban_settings_t read_ban_settings(configuration_map_t configuration_map, std::str
     if (configuration_map.count(prefix + "threshold_udphighports_mbps") != 0) {
             ban_settings.ban_threshold_udphighports_mbps =
                 convert_string_to_integer(configuration_map[prefix + "threshold_udphighports_mbps"]);
+    }
+
+    // config for decoder http
+    if (configuration_map.count(prefix + "ban_for_http_pps") != 0) {
+        ban_settings.enable_ban_for_http_pps = configuration_map[prefix + "ban_for_http_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_http_bandwidth") != 0) {
+        ban_settings.enable_ban_for_http_bandwidth = configuration_map[prefix + "ban_for_http_bandwidth"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_http_pps") != 0) {
+            ban_settings.ban_threshold_http_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_http_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_http_pps") != 0) {
+            ban_settings.ban_threshold_http_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_http_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_http_mbps") != 0) {
+            ban_settings.ban_threshold_http_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_http_mbps"]);
+    }
+
+    // config for decoder https
+    if (configuration_map.count(prefix + "ban_for_https_pps") != 0) {
+        ban_settings.enable_ban_for_https_pps = configuration_map[prefix + "ban_for_https_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_https_bandwidth") != 0) {
+        ban_settings.enable_ban_for_https_bandwidth = configuration_map[prefix + "ban_for_https_bandwidth"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_https_pps") != 0) {
+            ban_settings.ban_threshold_https_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_https_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_https_pps") != 0) {
+            ban_settings.ban_threshold_https_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_https_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_https_mbps") != 0) {
+            ban_settings.ban_threshold_https_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_https_mbps"]);
+    }
+
+    // config for decoder quic
+    if (configuration_map.count(prefix + "ban_for_quic_pps") != 0) {
+        ban_settings.enable_ban_for_quic_pps = configuration_map[prefix + "ban_for_quic_pps"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "ban_for_quic_bandwidth") != 0) {
+        ban_settings.enable_ban_for_quic_bandwidth = configuration_map[prefix + "ban_for_quic_bandwidth"] == "on";
+    }
+
+    if (configuration_map.count(prefix + "threshold_quic_pps") != 0) {
+            ban_settings.ban_threshold_quic_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_quic_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_quic_pps") != 0) {
+            ban_settings.ban_threshold_quic_pps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_quic_pps"]);
+    }
+
+    if (configuration_map.count(prefix + "threshold_quic_mbps") != 0) {
+            ban_settings.ban_threshold_quic_mbps =
+                convert_string_to_integer(configuration_map[prefix + "threshold_quic_mbps"]);
     }
 
     if (configuration_map.count(prefix + "enable_ban_subnets") != 0) {
@@ -1319,6 +1442,99 @@ bool we_should_ban_this_entity(const subnet_counter_t& average_speed_element,
         return true;
     }
 
+    // settings for http
+    if (current_ban_settings.enable_ban_for_http_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_http.in_packets,
+                         current_ban_settings.ban_threshold_http_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::http_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_http_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_http.out_packets,
+                         current_ban_settings.ban_threshold_http_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::http_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
+    if (current_ban_settings.enable_ban_for_http_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_http.in_bytes,
+                          current_ban_settings.ban_threshold_http_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::http_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_http_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_http.out_bytes,
+                          current_ban_settings.ban_threshold_http_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::http_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
+    // settings for https
+    if (current_ban_settings.enable_ban_for_https_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_https.in_packets,
+                         current_ban_settings.ban_threshold_https_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::https_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_https_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_https.out_packets,
+                         current_ban_settings.ban_threshold_https_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::https_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
+    if (current_ban_settings.enable_ban_for_https_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_https.in_bytes,
+                          current_ban_settings.ban_threshold_https_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::https_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_https_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_https.out_bytes,
+                          current_ban_settings.ban_threshold_https_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::https_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
+    // settings for quic
+    if (current_ban_settings.enable_ban_for_quic_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_quic.in_packets,
+                         current_ban_settings.ban_threshold_quic_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::quic_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_quic_pps &&
+        exceed_pps_speed_one_direction(average_speed_element.decoder_quic.out_packets,
+                         current_ban_settings.ban_threshold_quic_pps)) {
+        attack_detection_source = attack_detection_threshold_type_t::quic_packets_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
+    if (current_ban_settings.enable_ban_for_quic_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_quic.in_bytes,
+                          current_ban_settings.ban_threshold_quic_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::quic_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::incoming;
+        return true;
+    }
+    if (current_ban_settings.enable_ban_for_quic_bandwidth &&
+        exceed_mbps_speed_one_direction(average_speed_element.decoder_quic.out_bytes,
+                          current_ban_settings.ban_threshold_quic_mbps)) {
+        attack_detection_source = attack_detection_threshold_type_t::quic_bytes_per_second;
+        attack_detection_direction = attack_detection_direction_type_t::outgoing;
+        return true;
+    }
+
     // settings for tcphighports
     if (current_ban_settings.enable_ban_for_tcphighports_pps &&
         exceed_pps_speed_one_direction(average_speed_element.decoder_tcphighports.in_packets,
@@ -1398,6 +1614,12 @@ std::string get_amplification_attack_type(amplification_attack_type_t attack_typ
         return "snmp_amplification";
     } else if (attack_type == AMPLIFICATION_ATTACK_CHARGEN) {
         return "chargen_amplification";
+    } else if (attack_type == AMPLIFICATION_ATTACK_HTTP) {
+        return "http_amplification";
+    } else if (attack_type == AMPLIFICATION_ATTACK_HTTPS) {
+        return "https_amplification";
+    } else if (attack_type == AMPLIFICATION_ATTACK_QUIC) {
+        return "quic_amplification";
     } else {
         return "unexpected";
     }
@@ -1861,6 +2083,33 @@ bool serialize_traffic_counters_to_json(const subnet_counter_t& traffic_counters
 
         json_details["incoming_decoder_udphighports_pps"] = traffic_counters.decoder_udphighports.in_packets;
         json_details["outgoing_decoder_udphighports_pps"] = traffic_counters.decoder_udphighports.out_packets;
+        // decoder http
+        json_details["incoming_decoder_http_traffic"]      = traffic_counters.decoder_http.in_bytes;
+        json_details["incoming_decoder_http_traffic_bits"] = traffic_counters.decoder_http.in_bytes * 8;
+
+        json_details["outgoing_decoder_http_traffic"]      = traffic_counters.decoder_http.out_bytes;
+        json_details["outgoing_decoder_http_traffic_bits"] = traffic_counters.decoder_http.out_bytes * 8;
+
+        json_details["incoming_decoder_http_pps"] = traffic_counters.decoder_http.in_packets;
+        json_details["outgoing_decoder_http_pps"] = traffic_counters.decoder_http.out_packets;
+        // decoder https
+        json_details["incoming_decoder_https_traffic"]      = traffic_counters.decoder_https.in_bytes;
+        json_details["incoming_decoder_https_traffic_bits"] = traffic_counters.decoder_https.in_bytes * 8;
+
+        json_details["outgoing_decoder_https_traffic"]      = traffic_counters.decoder_https.out_bytes;
+        json_details["outgoing_decoder_https_traffic_bits"] = traffic_counters.decoder_https.out_bytes * 8;
+
+        json_details["incoming_decoder_https_pps"] = traffic_counters.decoder_https.in_packets;
+        json_details["outgoing_decoder_https_pps"] = traffic_counters.decoder_https.out_packets;
+        // decoder quic
+        json_details["incoming_decoder_quic_traffic"]      = traffic_counters.decoder_quic.in_bytes;
+        json_details["incoming_decoder_quic_traffic_bits"] = traffic_counters.decoder_quic.in_bytes * 8;
+
+        json_details["outgoing_decoder_quic_traffic"]      = traffic_counters.decoder_quic.out_bytes;
+        json_details["outgoing_decoder_quic_traffic_bits"] = traffic_counters.decoder_quic.out_bytes * 8;
+
+        json_details["incoming_decoder_quic_pps"] = traffic_counters.decoder_quic.in_packets;
+        json_details["outgoing_decoder_quic_pps"] = traffic_counters.decoder_quic.out_packets;
 
     } catch (...) {
         logger << log4cpp::Priority::ERROR << "Exception was triggered in attack details JSON encoder";
@@ -2552,6 +2801,18 @@ std::string get_human_readable_threshold_type(attack_detection_threshold_type_t 
         return "chargen packets per second";
     } else if (detecttion_type == attack_detection_threshold_type_t::chargen_bytes_per_second) {
         return "chargen bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::http_packets_per_second) {
+        return "http packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::http_bytes_per_second) {
+        return "http bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::https_packets_per_second) {
+        return "https packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::https_bytes_per_second) {
+        return "https bytes per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::quic_packets_per_second) {
+        return "quic packets per second";
+    } else if (detecttion_type == attack_detection_threshold_type_t::quic_bytes_per_second) {
+        return "quic bytes per second";
     } else if (detecttion_type == attack_detection_threshold_type_t::tcphighports_packets_per_second) {
         return "tcphighports packets per second";
     } else if (detecttion_type == attack_detection_threshold_type_t::tcphighports_bytes_per_second) {
@@ -2722,6 +2983,72 @@ bool fill_attack_information(
         } else {
             data_direction = OUTGOING;
             pps = current_attack.traffic_counters.decoder_chargen.out_bytes;
+        }
+    
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::http_packets_per_second) {
+
+        current_attack.attack_protocol = DECODER_HTTP;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.decoder_http.in_packets;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.decoder_http.out_packets;
+        }
+
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::http_bytes_per_second) {
+
+        current_attack.attack_protocol = DECODER_HTTP;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.decoder_http.in_bytes;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.decoder_http.out_bytes;
+        }
+
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::https_packets_per_second) {
+
+        current_attack.attack_protocol = DECODER_HTTPS;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.decoder_https.in_packets;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.decoder_https.out_packets;
+        }
+
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::https_bytes_per_second) {
+
+        current_attack.attack_protocol = DECODER_HTTPS;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.decoder_https.in_bytes;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.decoder_https.out_bytes;
+        }
+    
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::quic_packets_per_second) {
+
+        current_attack.attack_protocol = DECODER_QUIC;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.decoder_quic.in_packets;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.decoder_quic.out_packets;
+        }
+
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::quic_bytes_per_second) {
+
+        current_attack.attack_protocol = DECODER_QUIC;
+        if(current_attack.attack_detection_direction == attack_detection_direction_type_t::incoming) {
+            data_direction = INCOMING;
+            pps = current_attack.traffic_counters.decoder_quic.in_bytes;
+        } else {
+            data_direction = OUTGOING;
+            pps = current_attack.traffic_counters.decoder_quic.out_bytes;
         }
 
     } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcphighports_packets_per_second) {

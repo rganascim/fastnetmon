@@ -100,8 +100,16 @@ enum class attack_detection_threshold_type_t {
     tcphighports_bytes_per_second,
     // decoder udphighports
     udphighports_packets_per_second,
-    udphighports_bytes_per_second
-
+    udphighports_bytes_per_second,
+    // decoder http
+    http_packets_per_second,
+    http_bytes_per_second,
+    // decoder https
+    https_packets_per_second,
+    https_bytes_per_second,
+    // decoder quic
+    quic_packets_per_second,
+    quic_bytes_per_second
 };
 
 // Types of metrics as in Prometheus:
@@ -296,7 +304,13 @@ enum attack_type_t {
     // decoder udphighports
     ATTACK_udphighports           = 13,
     // para diferenciar de syn-flood
-    ATTACK_TCP_FLOOD              = 14
+    ATTACK_TCP_FLOOD              = 14,
+    // decoder http
+    ATTACK_http                   = 15,
+    // decoder https
+    ATTACK_https                  = 16,
+    // decoder quic
+    ATTACK_quic                   = 17
 };
 
 // Amplification types
@@ -307,6 +321,9 @@ enum amplification_attack_type_t {
     AMPLIFICATION_ATTACK_SSDP    = 4,
     AMPLIFICATION_ATTACK_SNMP    = 5,
     AMPLIFICATION_ATTACK_CHARGEN = 6,
+    AMPLIFICATION_ATTACK_HTTP    = 7,
+    AMPLIFICATION_ATTACK_HTTPS   = 8,
+    AMPLIFICATION_ATTACK_QUIC    = 9
 };
 
 class total_counter_element_t {
@@ -412,6 +429,9 @@ class ban_settings_t {
       enable_ban_for_chargen_pps(false), enable_ban_for_chargen_bandwidth(false), ban_threshold_chargen_mbps(0), ban_threshold_chargen_pps(0),
       enable_ban_for_tcphighports_pps(false), enable_ban_for_tcphighports_bandwidth(false), ban_threshold_tcphighports_mbps(0), ban_threshold_tcphighports_pps(0),
       enable_ban_for_udphighports_pps(false), enable_ban_for_udphighports_bandwidth(false), ban_threshold_udphighports_mbps(0), ban_threshold_udphighports_pps(0),
+      enable_ban_for_http_pps(false), enable_ban_for_http_bandwidth(false), ban_threshold_http_mbps(0), ban_threshold_http_pps(0),
+      enable_ban_for_https_pps(false), enable_ban_for_https_bandwidth(false), ban_threshold_https_mbps(0), ban_threshold_https_pps(0),
+      enable_ban_for_quic_pps(false), enable_ban_for_quic_bandwidth(false), ban_threshold_quic_mbps(0), ban_threshold_quic_pps(0),
       enable_ban_subnets(false) {
     }
     bool enable_ban;
@@ -494,6 +514,21 @@ class ban_settings_t {
     bool enable_ban_for_udphighports_bandwidth;
     unsigned int ban_threshold_udphighports_mbps;
     unsigned int ban_threshold_udphighports_pps;
+    // decoder http
+    bool enable_ban_for_http_pps;
+    bool enable_ban_for_http_bandwidth;
+    unsigned int ban_threshold_http_mbps;
+    unsigned int ban_threshold_http_pps;
+    // decoder https
+    bool enable_ban_for_https_pps;
+    bool enable_ban_for_https_bandwidth;
+    unsigned int ban_threshold_https_mbps;
+    unsigned int ban_threshold_https_pps;
+    // decoder quic
+    bool enable_ban_for_quic_pps;
+    bool enable_ban_for_quic_bandwidth;
+    unsigned int ban_threshold_quic_mbps;
+    unsigned int ban_threshold_quic_pps;
 
     bool enable_ban_subnets;
 };

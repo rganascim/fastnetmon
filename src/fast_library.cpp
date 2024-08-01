@@ -144,7 +144,7 @@ std::string get_net_address_from_network_as_string(std::string network_cidr_form
     split(subnet_as_string, network_cidr_format, boost::is_any_of("/"), boost::token_compress_on);
 
     if (subnet_as_string.size() != 2) {
-        return 0;
+        return  "";
     }
 
     return subnet_as_string[0];
@@ -187,6 +187,15 @@ std::string get_printable_protocol_name(unsigned int protocol) {
         break;
     case DECODER_UDPHIGHPORTS:
         proto_name = "udphighports";
+        break;
+    case DECODER_HTTP:
+        proto_name = "http";
+        break;
+    case DECODER_HTTPS:
+        proto_name = "https";
+        break;
+    case DECODER_QUIC:
+        proto_name = "quick";
         break;
     default:
         proto_name = "unknown";
@@ -1068,8 +1077,19 @@ std::string serialize_attack_description(const attack_details_t& current_attack)
         << "Incoming udphighports traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_udphighports.in_bytes) << " mbps\n"
         << "Outgoing udphighports traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_udphighports.out_bytes) << " mbps\n"
         << "Incoming udphighports pps: " << current_attack.traffic_counters.decoder_udphighports.in_packets << " packets per second\n"
-        << "Outgoing udphighports pps: " << current_attack.traffic_counters.decoder_udphighports.out_packets << " packets per second\n";
-
+        << "Outgoing udphighports pps: " << current_attack.traffic_counters.decoder_udphighports.out_packets << " packets per second\n"
+        << "Incoming http traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_http.in_bytes) << " mbps\n"
+        << "Outgoing http traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_http.out_bytes) << " mbps\n"
+        << "Incoming http pps: " << current_attack.traffic_counters.decoder_http.in_packets << " packets per second\n"
+        << "Outgoing http pps: " << current_attack.traffic_counters.decoder_http.out_packets << " packets per second\n"
+        << "Incoming https traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_https.in_bytes) << " mbps\n"
+        << "Outgoing https traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_https.out_bytes) << " mbps\n"
+        << "Incoming https pps: " << current_attack.traffic_counters.decoder_https.in_packets << " packets per second\n"
+        << "Outgoing https pps: " << current_attack.traffic_counters.decoder_https.out_packets << " packets per second\n"
+        << "Incoming quic traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_quic.in_bytes) << " mbps\n"
+        << "Outgoing quic traffic: " << convert_speed_to_mbps(current_attack.traffic_counters.decoder_quic.out_bytes) << " mbps\n"
+        << "Incoming quic pps: " << current_attack.traffic_counters.decoder_quic.in_packets << " packets per second\n"
+        << "Outgoing quic pps: " << current_attack.traffic_counters.decoder_quic.out_packets << " packets per second\n";
 
     return attack_description.str();
 }
@@ -1102,6 +1122,15 @@ attack_type_t detect_attack_type(const attack_details_t& current_attack) {
     } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::chargen_bytes_per_second
         || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::chargen_packets_per_second ) {
             return ATTACK_chargen;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::http_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::http_packets_per_second ) {
+            return ATTACK_http;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::https_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::https_packets_per_second ) {
+            return ATTACK_https;
+    } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::quic_bytes_per_second
+        || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::quic_packets_per_second ) {
+            return ATTACK_quic;
     } else if(current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcphighports_bytes_per_second
         || current_attack.attack_detection_threshold == attack_detection_threshold_type_t::tcphighports_packets_per_second ) {
             return ATTACK_tcphighports;
@@ -1175,6 +1204,12 @@ std::string get_printable_attack_name(attack_type_t attack) {
         return "ldap";
     } else if (attack == ATTACK_chargen) {
         return "chargen";
+    } else if (attack == ATTACK_http) {
+        return "http";
+    } else if (attack == ATTACK_https) {
+        return "https";
+    } else if (attack == ATTACK_quic) {
+        return "quic";
     } else if (attack == ATTACK_tcphighports) {
         return "tcphighports";
     } else if (attack == ATTACK_udphighports) {

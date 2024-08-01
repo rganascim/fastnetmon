@@ -36,6 +36,9 @@
 #define DECODER_CHARGEN 261
 #define DECODER_TCPHIGHPORTS 262
 #define DECODER_UDPHIGHPORTS 263
+#define DECODER_HTTP 264
+#define DECODER_HTTPS 265
+#define DECODER_QUIC 266
 
 typedef std::map<std::string, uint64_t> graphite_data_t;
 typedef std::vector<std::string> interfaces_list_t;

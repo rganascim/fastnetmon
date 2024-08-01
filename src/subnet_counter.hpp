@@ -109,6 +109,12 @@ class subnet_counter_t {
     traffic_counter_element_t decoder_tcphighports;
     // decoder udphighports
     traffic_counter_element_t decoder_udphighports;
+    // decoder http
+    traffic_counter_element_t decoder_http;
+    // decoder https
+    traffic_counter_element_t decoder_https;
+    // decoder quic
+    traffic_counter_element_t decoder_quic;
 
     // Total number of dropped traffic
     traffic_counter_element_t dropped;
@@ -141,6 +147,12 @@ class subnet_counter_t {
         this->decoder_tcphighports.update_if_larger(another_value.decoder_tcphighports);
         // decoder udphighports
         this->decoder_udphighports.update_if_larger(another_value.decoder_udphighports);
+        // decoder http
+        this->decoder_http.update_if_larger(another_value.decoder_http);
+        // decoder https
+        this->decoder_https.update_if_larger(another_value.decoder_https);
+        // decoder quic
+        this->decoder_quic.update_if_larger(another_value.decoder_quic);
 
         this->dropped.update_if_larger(another_value.dropped);
 
@@ -193,6 +205,12 @@ class subnet_counter_t {
         decoder_tcphighports.zeroify();
         // decoder udphighports
         decoder_udphighports.zeroify();
+        // decoder http
+        decoder_http.zeroify();
+        // decoder https
+        decoder_https.zeroify();
+        // decoder quic
+        decoder_quic.zeroify();
 
         in_flows  = 0;
         out_flows = 0;
@@ -229,5 +247,11 @@ class subnet_counter_t {
         ar& BOOST_SERIALIZATION_NVP(decoder_tcphighports);
         // decoder udphighports
         ar& BOOST_SERIALIZATION_NVP(decoder_udphighports);
+        // decoder http
+        ar& BOOST_SERIALIZATION_NVP(decoder_http);
+        // decoder https
+        ar& BOOST_SERIALIZATION_NVP(decoder_https);
+        // decoder quic
+        ar& BOOST_SERIALIZATION_NVP(decoder_quic);
     }
 };
